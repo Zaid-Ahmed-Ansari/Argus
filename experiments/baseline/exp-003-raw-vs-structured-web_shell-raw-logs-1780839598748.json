@@ -1,0 +1,114 @@
+{
+  "experimentId": "exp-003-raw-vs-structured",
+  "variant": "raw-logs",
+  "metrics": {
+    "accuracy": 0.855,
+    "attack_type_accuracy": 0.75,
+    "severity_accuracy": 1,
+    "mitre_mapping_accuracy": 1,
+    "investigation_quality": 0.925,
+    "recommendation_quality": 0.5,
+    "triage_completeness": 1,
+    "analyst_utility_score": 0.8128,
+    "hallucination_rate": 0,
+    "relevance": 0.675,
+    "latency_ms": 14200,
+    "latencyMs": 14200
+  },
+  "prediction": {
+    "attackType": "Web Shell",
+    "severity": "CRITICAL",
+    "summary": "An attacker (10.20.8.77) successfully uploaded a PHP web shell (`shell.php`) to the `/uploads/` directory of the web server. Following the upload, the attacker used the web shell to execute commands such as `whoami`, `cat /etc/passwd`, and attempted to download a second-stage payload. Multiple security systems (WAF, IDS, ModSecurity, SIEM) detected and alerted on this malicious activity, confirming the presence and active use of a web shell.",
+    "timeline": [
+      {
+        "timestamp": "Jun 12 16:40:05",
+        "event": "Attacker 10.20.8.77 uploaded `shell.php` to `/uploads/`.",
+        "source": "apache"
+      },
+      {
+        "timestamp": "Jun 12 16:40:06",
+        "event": "WAF alerted on suspicious PHP upload to webroot `/uploads/shell.php` from 10.20.8.77.",
+        "source": "waf"
+      },
+      {
+        "timestamp": "Jun 12 16:40:10",
+        "event": "Attacker executed `whoami` command via the web shell.",
+        "source": "apache"
+      },
+      {
+        "timestamp": "Jun 12 16:40:12",
+        "event": "Attacker attempted to read `/etc/passwd` via the web shell.",
+        "source": "apache"
+      },
+      {
+        "timestamp": "Jun 12 16:40:15",
+        "event": "Attacker attempted to download `stage2` payload from `http://evil.tld/stage2`.",
+        "source": "apache"
+      },
+      {
+        "timestamp": "Jun 12 16:40:16",
+        "event": "IDS detected web shell activity (repeated POST to .php with cmd parameter).",
+        "source": "ids"
+      },
+      {
+        "timestamp": "Jun 12 16:40:17",
+        "event": "SIEM correlated events to MITRE T1505.003 (Web Shell).",
+        "source": "siem"
+      },
+      {
+        "timestamp": "Jun 12 16:40:18",
+        "event": "ModSecurity blocked a SQL injection probe from 10.20.8.77 via the web shell.",
+        "source": "modsec"
+      },
+      {
+        "timestamp": "Jun 12 16:40:19",
+        "event": "Critical SIEM alert for web shell activity on webserver01.",
+        "source": "siem"
+      }
+    ],
+    "recommendations": [
+      "Immediately isolate the compromised web server (webserver01) to prevent further compromise and lateral movement.",
+      "Perform a forensic analysis of the web server to identify the full extent of compromise, including persistence mechanisms, other uploaded files, and any data exfiltration.",
+      "Block the attacker's IP address (10.20.8.77) at the perimeter firewall and other security controls.",
+      "Review and enhance file upload validation mechanisms to prevent similar web shell uploads in the future.",
+      "Investigate `http://evil.tld/stage2` for additional threat intelligence and indicators of compromise."
+    ]
+  },
+  "groundTruth": {
+    "attackType": "Web Shell Activity",
+    "severity": "CRITICAL",
+    "mitreTechniques": [
+      "T1505.003"
+    ],
+    "requiredKeywords": [
+      "web",
+      "shell",
+      "php",
+      "post"
+    ],
+    "forbiddenKeywords": [
+      "password spray",
+      "insider"
+    ],
+    "minTimelineEvents": 3,
+    "expectedRecommendationThemes": [
+      "isolate",
+      "remove",
+      "patch",
+      "forensic"
+    ],
+    "requiredEntities": {
+      "ips": [
+        "10.20.8.77"
+      ],
+      "hosts": [
+        "webserver01"
+      ]
+    }
+  },
+  "recordedAt": "2026-06-07T13:39:58.748Z",
+  "fixtureId": "web_shell",
+  "scenario": "Web Shell Activity",
+  "difficulty": "medium",
+  "note": "Batch run via scripts/run-experiment.ts"
+}

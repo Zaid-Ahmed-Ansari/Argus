@@ -20,6 +20,9 @@
 # production
 /build
 
+# editor / local tooling
+.cursor/
+
 # misc
 .DS_Store
 *.pem
@@ -30,8 +33,22 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# env files (can opt-in for committing if needed)
-.env*
+# env files
+.env
+.env.local
+.env.*.local
+!.env.example
+
+# experiment results (ephemeral local runs; baseline/ is committed for deploy)
+/experiments/results/*.json
+!/experiments/baseline/
+!/experiments/baseline/*.json
+
+# uploaded log files (keep directory structure)
+/storage/uploads/**
+!/storage/uploads/.gitkeep
+!/storage/uploads/staging/.gitkeep
+!/storage/uploads/incidents/.gitkeep
 
 # vercel
 .vercel
@@ -39,3 +56,5 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+/src/generated/prisma

@@ -1,0 +1,127 @@
+{
+  "experimentId": "exp-003-raw-vs-structured",
+  "variant": "raw-logs",
+  "metrics": {
+    "accuracy": 0.925,
+    "attack_type_accuracy": 0.75,
+    "severity_accuracy": 1,
+    "mitre_mapping_accuracy": 1,
+    "investigation_quality": 1,
+    "recommendation_quality": 0.75,
+    "triage_completeness": 1,
+    "analyst_utility_score": 0.915,
+    "hallucination_rate": 0,
+    "relevance": 0.85,
+    "latency_ms": 9704,
+    "latencyMs": 9704
+  },
+  "prediction": {
+    "attackType": "Insider Threat / Data Exfiltration (MITRE T1530)",
+    "severity": "HIGH",
+    "summary": "An insider threat incident involving user emma.hr has been detected. The user, who submitted their resignation 48 hours prior, accessed multiple sensitive HR and legal documents, performed a bulk download, copied data to a removable USB device, and then initiated a personal cloud synchronization. This activity triggered multiple security alerts, indicating a high-severity data exfiltration attempt.",
+    "timeline": [
+      {
+        "timestamp": "Jun 13 17:55:01",
+        "event": "User emma.hr accessed /hr/salaries_2026.xlsx.",
+        "source": "files audit"
+      },
+      {
+        "timestamp": "Jun 13 17:55:10",
+        "event": "User emma.hr accessed /hr/performance_reviews.zip.",
+        "source": "files audit"
+      },
+      {
+        "timestamp": "Jun 13 17:55:22",
+        "event": "User emma.hr accessed /legal/merger_draft.docx.",
+        "source": "files audit"
+      },
+      {
+        "timestamp": "Jun 13 17:55:35",
+        "event": "User emma.hr performed a bulk download of an 842MB archive to /tmp/eh_export.zip.",
+        "source": "files audit"
+      },
+      {
+        "timestamp": "Jun 13 17:55:40",
+        "event": "User emma.hr copied 842MB of data to a removable device E:\\backup.",
+        "source": "usb edr"
+      },
+      {
+        "timestamp": "Jun 13 17:55:45",
+        "event": "User emma.hr connected a personal cloud sync client to sync.evil-drop.io.",
+        "source": "vpn audit"
+      },
+      {
+        "timestamp": "Jun 13 17:55:50",
+        "event": "DLP policy violation detected: HR confidential data staged for external sync by emma.hr.",
+        "source": "dlp"
+      },
+      {
+        "timestamp": "Jun 13 17:55:51",
+        "event": "SIEM detected an insider threat pattern: bulk sensitive file access + USB + cloud sync.",
+        "source": "siem"
+      },
+      {
+        "timestamp": "Jun 13 17:55:52",
+        "event": "SIEM noted user emma.hr's resignation submitted 48 hours ago, elevating risk score.",
+        "source": "siem"
+      },
+      {
+        "timestamp": "Jun 13 17:55:53",
+        "event": "SIEM identified MITRE T1530 Data from Cloud Storage / internal collection.",
+        "source": "siem"
+      },
+      {
+        "timestamp": "Jun 13 17:55:54",
+        "event": "SIEM generated a HIGH severity alert for insider_threat involving user emma.hr.",
+        "source": "siem"
+      },
+      {
+        "timestamp": "Jun 13 17:55:55",
+        "event": "HR audit revealed emma.hr accessed 47 files outside normal role scope in 54 minutes.",
+        "source": "hr audit"
+      }
+    ],
+    "recommendations": [
+      "Immediately disable all accounts and revoke access for user 'emma.hr'.",
+      "Isolate 'LAPTOP-HR-09' from the network and initiate forensic imaging and analysis.",
+      "Investigate the contents of the bulk download (/tmp/eh_export.zip) and the data copied to the removable device and personal cloud sync.",
+      "Review 'emma.hr's activity logs for the past 48 hours (since resignation) and prior for any other suspicious or unauthorized data access/transfers.",
+      "Notify legal and human resources departments regarding potential data exfiltration and policy violations.",
+      "Assess the full scope of data potentially exfiltrated and its impact on the organization."
+    ]
+  },
+  "groundTruth": {
+    "attackType": "Insider Threat",
+    "severity": "HIGH",
+    "mitreTechniques": [
+      "T1530"
+    ],
+    "requiredKeywords": [
+      "insider",
+      "bulk",
+      "sensitive",
+      "exfiltration"
+    ],
+    "forbiddenKeywords": [
+      "brute force",
+      "web shell"
+    ],
+    "minTimelineEvents": 4,
+    "expectedRecommendationThemes": [
+      "revoke",
+      "investigate",
+      "dlp",
+      "legal"
+    ],
+    "requiredEntities": {
+      "users": [
+        "emma.hr"
+      ]
+    }
+  },
+  "recordedAt": "2026-06-07T13:40:18.729Z",
+  "fixtureId": "insider_threat",
+  "scenario": "Insider Threat",
+  "difficulty": "hard",
+  "note": "Batch run via scripts/run-experiment.ts"
+}

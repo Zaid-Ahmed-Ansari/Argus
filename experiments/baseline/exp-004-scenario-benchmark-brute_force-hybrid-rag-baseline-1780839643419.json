@@ -1,0 +1,121 @@
+{
+  "experimentId": "exp-004-scenario-benchmark",
+  "variant": "hybrid-rag-baseline",
+  "metrics": {
+    "accuracy": 0.58,
+    "attack_type_accuracy": 0.75,
+    "severity_accuracy": 0,
+    "mitre_mapping_accuracy": 0,
+    "investigation_quality": 0.925,
+    "recommendation_quality": 0.75,
+    "triage_completeness": 1,
+    "analyst_utility_score": 0.7928,
+    "hallucination_rate": 0,
+    "relevance": 0.75,
+    "latency_ms": 12274,
+    "latencyMs": 12274
+  },
+  "prediction": {
+    "attackType": "Brute Force (T1110)",
+    "severity": "CRITICAL",
+    "summary": "Multiple SSH brute-force attempts were detected targeting privileged accounts 'admin' and 'root' from several source IPs. Specifically, IP 192.168.1.50 made a series of failed attempts against the 'admin' account before successfully authenticating and opening a session at 12:04:01. This indicates a confirmed compromise of the 'admin' account.",
+    "timeline": [
+      {
+        "timestamp": "Jun 4 12:01:03",
+        "event": "Failed password for admin",
+        "source": "192.168.1.50"
+      },
+      {
+        "timestamp": "Jun 4 12:01:05",
+        "event": "Failed password for admin",
+        "source": "192.168.1.50"
+      },
+      {
+        "timestamp": "Jun 4 12:01:08",
+        "event": "Failed password for admin",
+        "source": "192.168.1.50"
+      },
+      {
+        "timestamp": "Jun 4 12:01:12",
+        "event": "Failed password for admin",
+        "source": "192.168.1.51"
+      },
+      {
+        "timestamp": "Jun 4 12:01:15",
+        "event": "Failed password for admin",
+        "source": "192.168.1.51"
+      },
+      {
+        "timestamp": "Jun 4 12:02:01",
+        "event": "Failed password for root",
+        "source": "10.0.0.99"
+      },
+      {
+        "timestamp": "Jun 4 12:02:04",
+        "event": "Failed password for root",
+        "source": "10.0.0.99"
+      },
+      {
+        "timestamp": "Jun 4 12:03:22",
+        "event": "Failed password for admin",
+        "source": "192.168.1.50"
+      },
+      {
+        "timestamp": "Jun 4 12:04:01",
+        "event": "Accepted password for admin",
+        "source": "192.168.1.50"
+      },
+      {
+        "timestamp": "Jun 4 12:04:02",
+        "event": "Session opened for user admin",
+        "source": "192.168.1.50"
+      }
+    ],
+    "recommendations": [
+      "Immediately block source IP 192.168.1.50 at the firewall or security group level.",
+      "Disable the 'admin' account and force a password reset. Revoke all active sessions for 'admin'.",
+      "Investigate post-login activity for the 'admin' session originating from 192.168.1.50 to determine the extent of compromise (e.g., commands executed, lateral movement).",
+      "Review authentication logs for other privileged accounts and services for similar brute-force patterns or successful logins from suspicious IPs.",
+      "Implement or enhance rate-limiting mechanisms (e.g., fail2ban) for SSH to prevent future brute-force attacks.",
+      "Consider requiring key-based authentication for administrative access to reduce password-based attack surface."
+    ]
+  },
+  "groundTruth": {
+    "attackType": "Brute Force",
+    "severity": "HIGH",
+    "mitreTechniques": [
+      "T1110.001"
+    ],
+    "requiredKeywords": [
+      "brute",
+      "failed",
+      "admin",
+      "password"
+    ],
+    "forbiddenKeywords": [
+      "malware",
+      "ransomware",
+      "sql injection"
+    ],
+    "minTimelineEvents": 2,
+    "expectedRecommendationThemes": [
+      "block",
+      "mfa",
+      "password",
+      "account"
+    ],
+    "requiredEntities": {
+      "users": [
+        "admin"
+      ],
+      "ips": [
+        "192.168.1.50"
+      ]
+    }
+  },
+  "recordedAt": "2026-06-07T13:40:43.418Z",
+  "fixtureId": "brute_force",
+  "scenario": "Brute Force",
+  "difficulty": "easy",
+  "note": "Batch run via scripts/run-experiment.ts"
+}

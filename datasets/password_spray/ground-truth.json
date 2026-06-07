@@ -1,0 +1,19 @@
+{
+  "fixtureId": "password_spray",
+  "scenario": "Password Spray",
+  "difficulty": "easy",
+  "logFile": "datasets/password_spray/sample.log",
+  "groundTruth": {
+    "attackType": "Password Spray",
+    "severity": "HIGH",
+    "mitreTechniques": ["T1110.003"],
+    "requiredKeywords": ["spray", "failed", "multiple", "users"],
+    "forbiddenKeywords": ["ransomware", "ddos", "sql injection"],
+    "minTimelineEvents": 3,
+    "expectedRecommendationThemes": ["mfa", "lockout", "password", "monitor"],
+    "requiredEntities": {
+      "users": ["alice", "bob"],
+      "ips": ["203.0.113.45"]
+    }
+  }
+}

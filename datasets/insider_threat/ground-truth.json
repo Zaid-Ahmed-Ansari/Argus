@@ -1,0 +1,18 @@
+{
+  "fixtureId": "insider_threat",
+  "scenario": "Insider Threat",
+  "difficulty": "hard",
+  "logFile": "datasets/insider_threat/sample.log",
+  "groundTruth": {
+    "attackType": "Insider Threat",
+    "severity": "HIGH",
+    "mitreTechniques": ["T1530"],
+    "requiredKeywords": ["insider", "bulk", "sensitive", "exfiltration"],
+    "forbiddenKeywords": ["brute force", "web shell"],
+    "minTimelineEvents": 4,
+    "expectedRecommendationThemes": ["revoke", "investigate", "dlp", "legal"],
+    "requiredEntities": {
+      "users": ["emma.hr"]
+    }
+  }
+}

@@ -1,0 +1,124 @@
+{
+  "experimentId": "exp-005-rag-input-matrix",
+  "variant": "no-rag-·-structured",
+  "metrics": {
+    "accuracy": 0.975,
+    "attack_type_accuracy": 1,
+    "severity_accuracy": 1,
+    "mitre_mapping_accuracy": 1,
+    "investigation_quality": 1,
+    "recommendation_quality": 0.75,
+    "triage_completeness": 1,
+    "analyst_utility_score": 0.93,
+    "hallucination_rate": 0,
+    "relevance": 0.925,
+    "latency_ms": 11673,
+    "latencyMs": 11673
+  },
+  "prediction": {
+    "attackType": "Privilege Escalation",
+    "severity": "CRITICAL",
+    "summary": "A critical privilege escalation incident occurred on June 7. The 'www-data' user, typically a low-privileged web server account, successfully leveraged 'sudo' to execute commands as the root user. This included attempting to read sensitive system files like '/etc/shadow' and creating a persistent setuid root shell at '/tmp/.svc_bash'. This indicates a successful compromise of root privileges on the system.",
+    "timeline": [
+      {
+        "timestamp": "Jun  7 09:10:01",
+        "event": "User www-data attempted to execute /bin/bash as root via sudo.",
+        "source": "sudo"
+      },
+      {
+        "timestamp": "Jun  7 09:10:02",
+        "event": "Sudo session opened for user root by www-data.",
+        "source": "sudo"
+      },
+      {
+        "timestamp": "Jun  7 09:10:15",
+        "event": "User www-data attempted to read /etc/shadow as root via sudo.",
+        "source": "sudo"
+      },
+      {
+        "timestamp": "Jun  7 09:10:22",
+        "event": "System call 'chmod' executed, likely modifying file permissions.",
+        "source": "audit"
+      },
+      {
+        "timestamp": "Jun  7 09:10:23",
+        "event": "Audit log noted permissions of /usr/bin/sudo (mode 04755, setuid root).",
+        "source": "audit"
+      },
+      {
+        "timestamp": "Jun  7 09:10:24",
+        "event": "User www-data copied /bin/bash to /tmp/.svc_bash as root via sudo.",
+        "source": "sudo"
+      },
+      {
+        "timestamp": "Jun  7 09:10:25",
+        "event": "Sudo session opened for user root by www-data.",
+        "source": "sudo"
+      },
+      {
+        "timestamp": "Jun  7 09:10:26",
+        "event": "Permissions of /tmp/.svc_bash changed to 4755 (setuid root) by uid=33 (www-data).",
+        "source": "audit"
+      },
+      {
+        "timestamp": "Jun  7 09:10:27",
+        "event": "Privilege escalation attempt detected: low-privilege user www-data executed root-level commands.",
+        "source": "auth"
+      },
+      {
+        "timestamp": "Jun  7 09:10:28",
+        "event": "Sudo session closed for user root.",
+        "source": "sudo"
+      },
+      {
+        "timestamp": "Jun  7 09:10:29",
+        "event": "SIEM generated a critical alert for privilege escalation abuse (T1548) by user www-data.",
+        "source": "siem"
+      }
+    ],
+    "recommendations": [
+      "Immediately isolate the compromised host to prevent further lateral movement or damage.",
+      "Investigate the initial access vector that allowed the 'www-data' user to gain execution capabilities and 'sudo' access.",
+      "Analyze the '/tmp/.svc_bash' file and its creation for any additional malicious payloads or modifications.",
+      "Review 'sudo' configurations, user permissions, and web application vulnerabilities that might have facilitated this escalation.",
+      "Perform a comprehensive forensic analysis of the system to identify the full extent of the compromise and any post-exploitation activities."
+    ]
+  },
+  "groundTruth": {
+    "attackType": "Privilege Escalation",
+    "severity": "CRITICAL",
+    "mitreTechniques": [
+      "T1548"
+    ],
+    "requiredKeywords": [
+      "privilege",
+      "escalation",
+      "sudo",
+      "root"
+    ],
+    "forbiddenKeywords": [
+      "password spray",
+      "web shell upload"
+    ],
+    "minTimelineEvents": 3,
+    "expectedRecommendationThemes": [
+      "isolate",
+      "sudo",
+      "account",
+      "forensic"
+    ],
+    "requiredEntities": {
+      "users": [
+        "www-data"
+      ],
+      "hosts": [
+        "app"
+      ]
+    }
+  },
+  "recordedAt": "2026-06-07T13:46:03.488Z",
+  "fixtureId": "privilege_escalation",
+  "scenario": "Privilege Escalation",
+  "difficulty": "medium",
+  "note": "Batch run via scripts/run-experiment.ts"
+}

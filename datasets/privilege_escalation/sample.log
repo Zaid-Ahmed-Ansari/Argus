@@ -1,0 +1,11 @@
+Jun  7 09:10:01 app sudo[44001]:   www-data : TTY=pts/0 ; PWD=/var/www ; USER=root ; COMMAND=/bin/bash
+Jun  7 09:10:02 app sudo[44002]: pam_unix(sudo:session): session opened for user root(uid=0) by www-data(uid=33)
+Jun  7 09:10:15 app sudo[44003]:   www-data : TTY=pts/0 ; PWD=/root ; USER=root ; COMMAND=/usr/bin/cat /etc/shadow
+Jun  7 09:10:22 app audit[44004]: type=SYSCALL arch=c86_64 syscall=59 success=yes exit=0 a0=... comm="chmod" exe="/bin/chmod" key=priv_esc
+Jun  7 09:10:23 app audit[44005]: type=PATH name="/usr/bin/sudo" item=0 inode=... mode=04755 ouid=0 ogid=0 rdev=00:00 nametype=NORMAL
+Jun  7 09:10:24 app sudo[44006]:   www-data : TTY=pts/0 ; PWD=/tmp ; USER=root ; COMMAND=/bin/cp /bin/bash /tmp/.svc_bash
+Jun  7 09:10:25 app sudo[44007]: pam_unix(sudo:session): session opened for user root(uid=0) by www-data(uid=33)
+Jun  7 09:10:26 app audit[44008]: setuid binary /tmp/.svc_bash permissions changed to 4755 by uid=33
+Jun  7 09:10:27 app auth[44009]: privilege escalation attempt: low-privilege user www-data executed root-level commands
+Jun  7 09:10:28 app sudo[44010]: pam_unix(sudo:session): session closed for user root
+Jun  7 09:10:29 app siem[44011]: ALERT severity=CRITICAL rule=priv_esc_abuse user=www-data target_uid=0 technique=T1548

@@ -1,0 +1,11 @@
+Jun 11 22:10:01 proxy[88001]: CONNECT upload.evil-cdn.net:443 user=svc_etl bytes_out=0 bytes_in=0 src=10.20.3.15
+Jun 11 22:10:45 proxy[88002]: POST upload.evil-cdn.net/bucket/xfer user=svc_etl bytes_out=524288000 status=200 src=10.20.3.15
+Jun 11 22:11:02 proxy[88003]: POST upload.evil-cdn.net/bucket/xfer user=svc_etl bytes_out=612352000 status=200 src=10.20.3.15
+Jun 11 22:11:18 firewall[88004]: outbound anomaly: 10.20.3.15 sent 1.1GB to 185.220.101.44 in 77 seconds
+Jun 11 22:11:19 dlp[88005]: sensitive label FINANCE_PII detected in outbound transfer by svc_etl
+Jun 11 22:11:20 siem[88006]: data exfiltration pattern: large encrypted upload to rare external domain
+Jun 11 22:11:21 ids[88007]: MITRE T1041 Exfiltration Over C2 Channel suspected host=10.20.3.15
+Jun 11 22:11:22 proxy[88008]: TLS SNI=upload.evil-cdn.net JA3=unknown client svc_etl
+Jun 11 22:11:23 netflow[88009]: volume spike 10.20.3.15 -> 185.220.101.44:443 14x baseline
+Jun 11 22:11:24 siem[88010]: ALERT severity=CRITICAL incident=data_exfiltration user=svc_etl dest=upload.evil-cdn.net
+Jun 11 22:11:25 edr[88011]: process curl uploading /data/finance_q2.zip initiated by svc_etl

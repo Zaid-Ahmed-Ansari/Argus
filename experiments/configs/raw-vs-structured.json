@@ -1,0 +1,27 @@
+{
+  "id": "exp-003-raw-vs-structured",
+  "name": "Raw Logs vs Structured Events",
+  "category": "input",
+  "description": "Compare LLM reasoning on raw log text versus parsed structured security events.",
+  "variants": [
+    {
+      "provider": "GEMINI",
+      "usedRag": false,
+      "inputFormat": "RAW",
+      "label": "Raw logs"
+    },
+    {
+      "provider": "GEMINI",
+      "usedRag": false,
+      "inputFormat": "STRUCTURED",
+      "label": "Structured events"
+    }
+  ],
+  "metrics": [
+    "accuracy",
+    "attack_type_accuracy",
+    "investigation_quality",
+    "triage_completeness",
+    "latency_ms"
+  ]
+}

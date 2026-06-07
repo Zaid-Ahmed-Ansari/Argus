@@ -1,0 +1,19 @@
+{
+  "fixtureId": "lateral_movement",
+  "scenario": "Lateral Movement",
+  "difficulty": "hard",
+  "logFile": "datasets/lateral_movement/sample.log",
+  "groundTruth": {
+    "attackType": "Lateral Movement",
+    "severity": "HIGH",
+    "mitreTechniques": ["T1021"],
+    "requiredKeywords": ["lateral", "movement", "pivot", "remote"],
+    "forbiddenKeywords": ["password spray", "insider download"],
+    "minTimelineEvents": 4,
+    "expectedRecommendationThemes": ["isolate", "account", "segment", "hunt"],
+    "requiredEntities": {
+      "users": ["svc_backup"],
+      "hosts": ["FILESRV01", "DBSRV02"]
+    }
+  }
+}

@@ -1,0 +1,14 @@
+Jun  6 18:22:01 web sshd[33001]: Failed password for user@corp from 198.51.100.12 port 55201 ssh2
+Jun  6 18:22:02 web sshd[33002]: Failed password for user@corp from 198.51.100.33 port 55202 ssh2
+Jun  6 18:22:03 web sshd[33003]: Failed password for user@corp from 198.51.100.44 port 55203 ssh2
+Jun  6 18:22:04 web nginx[33004]: POST /login 401 142 "-" "python-requests/2.28" 198.51.100.55
+Jun  6 18:22:05 web nginx[33005]: POST /login 401 142 "-" "python-requests/2.28" 198.51.100.66
+Jun  6 18:22:06 web nginx[33006]: POST /login 401 142 "-" "python-requests/2.28" 198.51.100.77
+Jun  6 18:22:07 web sshd[33007]: Failed password for user@corp from 198.51.100.88 port 55204 ssh2
+Jun  6 18:22:08 web nginx[33008]: POST /login 401 142 "-" "python-requests/2.28" 198.51.100.99
+Jun  6 18:22:09 web sshd[33009]: Failed password for user@corp from 198.51.100.101 port 55205 ssh2
+Jun  6 18:22:10 web nginx[33010]: POST /login 401 142 "-" "python-requests/2.28" 198.51.100.112
+Jun  6 18:22:11 web nginx[33011]: POST /login 200 512 "-" "python-requests/2.28" 198.51.100.123
+Jun  6 18:22:12 web sshd[33012]: Accepted password for user@corp from 198.51.100.123 port 55206 ssh2
+Jun  6 18:22:13 web sshd[33012]: pam_unix(sshd:session): session opened for user user@corp
+Jun  6 18:22:14 web audit[33013]: distributed credential reuse detected across 8 source IPs for account user@corp

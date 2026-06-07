@@ -1,0 +1,136 @@
+{
+  "experimentId": "exp-002-rag-vs-no-rag",
+  "variant": "hybrid-rag",
+  "metrics": {
+    "accuracy": 0.9,
+    "attack_type_accuracy": 0.75,
+    "severity_accuracy": 1,
+    "mitre_mapping_accuracy": 1,
+    "investigation_quality": 1,
+    "recommendation_quality": 0.5,
+    "triage_completeness": 1,
+    "analyst_utility_score": 0.845,
+    "hallucination_rate": 0,
+    "relevance": 0.775,
+    "latency_ms": 14798,
+    "latencyMs": 14798
+  },
+  "prediction": {
+    "attackType": "Lateral Movement (T1021 Remote Services)",
+    "severity": "HIGH",
+    "summary": "A service account, svc_backup, was observed performing rapid lateral movement across three internal hosts: FILESRV01, JUMP01, and DBSRV02, within a two-minute window. The account accessed a finance share, used RDP for host-to-host pivots, and executed sqlcmd on a database server. This activity triggered multiple SIEM and IDS alerts, indicating a high-severity incident.",
+    "timeline": [
+      {
+        "timestamp": "Jun  8 14:30:01",
+        "event": "Account svc_backup logs into FILESRV01 (LogonType=3) from 10.10.5.12.",
+        "source": "dc-winlog"
+      },
+      {
+        "timestamp": "Jun  8 14:30:05",
+        "event": "SMB session opened by svc_backup to \\\\FILESRV01\\finance$.",
+        "source": "filesrv smb"
+      },
+      {
+        "timestamp": "Jun  8 14:30:12",
+        "event": "svc_backup reads 842 files from \\\\FILESRV01\\finance$.",
+        "source": "filesrv smb"
+      },
+      {
+        "timestamp": "Jun  8 14:31:01",
+        "event": "RDP login success for svc_backup from 10.10.5.12 to JUMP01.",
+        "source": "jump rdp"
+      },
+      {
+        "timestamp": "Jun  8 14:31:18",
+        "event": "RDP login success for svc_backup from JUMP01 to DBSRV02.",
+        "source": "jump rdp"
+      },
+      {
+        "timestamp": "Jun  8 14:31:44",
+        "event": "Interactive logon (LogonType=10) by svc_backup on DBSRV02 from JUMP01.",
+        "source": "dbsrv winlog"
+      },
+      {
+        "timestamp": "Jun  8 14:32:02",
+        "event": "sqlcmd executed by svc_backup against master database from JUMP01.",
+        "source": "dbsrv audit"
+      },
+      {
+        "timestamp": "Jun  8 14:32:15",
+        "event": "Lateral movement chain detected: FILESRV01 -> JUMP01 -> DBSRV02 via svc_backup.",
+        "source": "siem"
+      },
+      {
+        "timestamp": "Jun  8 14:32:16",
+        "event": "MITRE technique T1021 Remote Services observed across 3 internal hosts.",
+        "source": "siem"
+      },
+      {
+        "timestamp": "Jun  8 14:32:17",
+        "event": "Internal east-west traffic spike observed: 10.10.5.12 -> 10.10.8.20 port 445.",
+        "source": "firewall"
+      },
+      {
+        "timestamp": "Jun  8 14:32:18",
+        "event": "Internal east-west traffic observed: 10.10.8.20 -> 10.10.12.5 port 3389.",
+        "source": "firewall"
+      },
+      {
+        "timestamp": "Jun  8 14:32:19",
+        "event": "Suspicious pivot detected: service account svc_backup authenticating on 3 hosts in 2 minutes.",
+        "source": "ids"
+      },
+      {
+        "timestamp": "Jun  8 14:32:20",
+        "event": "ALERT severity=HIGH incident=lateral_movement for account=svc_backup.",
+        "source": "siem"
+      }
+    ],
+    "recommendations": [
+      "Immediately disable the 'svc_backup' account and revoke all active sessions across the environment.",
+      "Isolate the affected hosts (FILESRV01, JUMP01, DBSRV02) to prevent further lateral movement or data exfiltration.",
+      "Verify whether the successful logins and subsequent actions by 'svc_backup' were expected or authorized via change tickets or known administrative tasks.",
+      "Conduct a thorough forensic analysis of FILESRV01, JUMP01, and DBSRV02 to identify the initial compromise vector, persistence mechanisms, and any additional malicious activity or data exfiltration.",
+      "Review MFA logs for 'svc_backup' to determine if MFA was satisfied or bypassed during the authentication events.",
+      "Correlate with EDR alerts and host logs on all involved systems for related activity and to identify any commands or processes spawned in the new sessions."
+    ]
+  },
+  "groundTruth": {
+    "attackType": "Lateral Movement",
+    "severity": "HIGH",
+    "mitreTechniques": [
+      "T1021"
+    ],
+    "requiredKeywords": [
+      "lateral",
+      "movement",
+      "pivot",
+      "remote"
+    ],
+    "forbiddenKeywords": [
+      "password spray",
+      "insider download"
+    ],
+    "minTimelineEvents": 4,
+    "expectedRecommendationThemes": [
+      "isolate",
+      "account",
+      "segment",
+      "hunt"
+    ],
+    "requiredEntities": {
+      "users": [
+        "svc_backup"
+      ],
+      "hosts": [
+        "FILESRV01",
+        "DBSRV02"
+      ]
+    }
+  },
+  "recordedAt": "2026-06-07T13:34:24.268Z",
+  "fixtureId": "lateral_movement",
+  "scenario": "Lateral Movement",
+  "difficulty": "hard",
+  "note": "Batch run via scripts/run-experiment.ts"
+}

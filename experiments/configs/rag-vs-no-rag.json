@@ -1,0 +1,28 @@
+{
+  "id": "exp-002-rag-vs-no-rag",
+  "name": "RAG vs No RAG",
+  "category": "rag",
+  "description": "Evaluate whether hybrid MITRE/playbook retrieval improves incident analysis across labeled scenarios.",
+  "variants": [
+    {
+      "provider": "GEMINI",
+      "usedRag": false,
+      "inputFormat": "RAW",
+      "label": "No RAG"
+    },
+    {
+      "provider": "GEMINI",
+      "usedRag": true,
+      "inputFormat": "RAW",
+      "label": "Hybrid RAG"
+    }
+  ],
+  "metrics": [
+    "accuracy",
+    "attack_type_accuracy",
+    "mitre_mapping_accuracy",
+    "hallucination_rate",
+    "analyst_utility_score",
+    "latency_ms"
+  ]
+}

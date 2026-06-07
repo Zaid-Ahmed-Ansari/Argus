@@ -1,0 +1,121 @@
+{
+  "experimentId": "exp-003-raw-vs-structured",
+  "variant": "structured-events",
+  "metrics": {
+    "accuracy": 0.53,
+    "attack_type_accuracy": 0,
+    "severity_accuracy": 0,
+    "mitre_mapping_accuracy": 1,
+    "investigation_quality": 0.925,
+    "recommendation_quality": 0.75,
+    "triage_completeness": 1,
+    "analyst_utility_score": 0.7777,
+    "hallucination_rate": 0,
+    "relevance": 0.525,
+    "latency_ms": 10834,
+    "latencyMs": 10834
+  },
+  "prediction": {
+    "attackType": "MITRE T1078.004 Valid Accounts: Account Manipulation / Abuse of Privileged Account",
+    "severity": "CRITICAL",
+    "summary": "A critical security incident involving the 'admin_jones' account was detected during off-hours. The account was used to delete a user, flush firewall rules, view the '/etc/shadow' file, stop the audit daemon, and clear command history, indicating an attempt to obscure malicious activity. This behavior aligns with MITRE T1078.004, suggesting potential abuse of valid privileged credentials and a high likelihood of system compromise.",
+    "timeline": [
+      {
+        "timestamp": "Jun 9 02:45:01",
+        "event": "User 'temp_contractor' deleted with root privileges (auid=1001).",
+        "source": "auditd"
+      },
+      {
+        "timestamp": "Jun 9 02:45:08",
+        "event": "Firewall rules flushed with root privileges (auid=1001).",
+        "source": "auditd"
+      },
+      {
+        "timestamp": "Jun 9 02:45:15",
+        "event": "User 'admin_jones' executed 'cat /etc/shadow'.",
+        "source": "bash"
+      },
+      {
+        "timestamp": "Jun 9 02:45:22",
+        "event": "Audit daemon stopped with root privileges (auid=1001).",
+        "source": "auditd"
+      },
+      {
+        "timestamp": "Jun 9 02:45:30",
+        "event": "Privileged session initiated by 'admin_jones' from 198.18.0.9 during off-hours.",
+        "source": "auth"
+      },
+      {
+        "timestamp": "Jun 9 02:45:35",
+        "event": "SIEM alert: Suspicious admin activity by 'admin_jones' (firewall flush, user delete, audit stop).",
+        "source": "siem"
+      },
+      {
+        "timestamp": "Jun 9 02:45:36",
+        "event": "SIEM alert: Baseline deviation detected for 'admin_jones' (activity outside normal working hours).",
+        "source": "siem"
+      },
+      {
+        "timestamp": "Jun 9 02:45:37",
+        "event": "Command history cleared with root privileges (auid=1001).",
+        "source": "auditd"
+      },
+      {
+        "timestamp": "Jun 9 02:45:38",
+        "event": "SIEM alert: MITRE T1078.004 Cloud Accounts / Valid Accounts abuse by privileged admin identified.",
+        "source": "siem"
+      },
+      {
+        "timestamp": "Jun 9 02:45:39",
+        "event": "Session closed for 'admin_jones' from 198.18.0.9.",
+        "source": "auth"
+      }
+    ],
+    "recommendations": [
+      "Immediately disable or suspend the 'admin_jones' account to prevent further unauthorized access.",
+      "Isolate the affected 'prod' server from the network to contain potential compromise.",
+      "Initiate a full forensic investigation of the 'prod' server to determine the initial compromise vector, extent of access, and any data exfiltration.",
+      "Review all recent activity by 'admin_jones' and other privileged accounts for similar suspicious actions.",
+      "Reset credentials for 'admin_jones' and enforce Multi-Factor Authentication (MFA) if not already in place.",
+      "Restore auditd service and ensure all logging mechanisms are fully operational and secure.",
+      "Review and restore firewall rules to a known good state."
+    ]
+  },
+  "groundTruth": {
+    "attackType": "Suspicious Admin Activity",
+    "severity": "HIGH",
+    "mitreTechniques": [
+      "T1078.004"
+    ],
+    "requiredKeywords": [
+      "admin",
+      "off-hours",
+      "privileged",
+      "suspicious"
+    ],
+    "forbiddenKeywords": [
+      "brute force",
+      "web shell"
+    ],
+    "minTimelineEvents": 3,
+    "expectedRecommendationThemes": [
+      "disable",
+      "review",
+      "session",
+      "audit"
+    ],
+    "requiredEntities": {
+      "users": [
+        "admin_jones"
+      ],
+      "ips": [
+        "198.18.0.9"
+      ]
+    }
+  },
+  "recordedAt": "2026-06-07T13:39:00.123Z",
+  "fixtureId": "suspicious_admin_activity",
+  "scenario": "Suspicious Admin Activity",
+  "difficulty": "medium",
+  "note": "Batch run via scripts/run-experiment.ts"
+}

@@ -1,0 +1,20 @@
+{
+  "fixtureId": "brute_force",
+  "scenario": "Brute Force",
+  "difficulty": "easy",
+  "logFile": "datasets/brute_force/sample.log",
+  "groundTruth": {
+    "attackType": "Brute Force",
+    "severity": "HIGH",
+    "mitreTechniques": ["T1110.001"],
+    "requiredKeywords": ["brute", "failed", "admin", "password"],
+    "forbiddenKeywords": ["malware", "ransomware", "sql injection"],
+    "minTimelineEvents": 2,
+    "expectedRecommendationThemes": ["block", "mfa", "password", "account"],
+    "requiredEntities": {
+      "users": ["admin"],
+      "ips": ["192.168.1.50"]
+    }
+  },
+  "_deprecated": "Use datasets/brute_force/ground-truth.json"
+}

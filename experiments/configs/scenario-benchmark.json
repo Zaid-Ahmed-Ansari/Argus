@@ -1,0 +1,22 @@
+{
+  "id": "exp-004-scenario-benchmark",
+  "name": "Cross-Scenario Benchmark",
+  "category": "scenario",
+  "description": "Measure RAG-assisted analysis consistency across all 10 labeled attack scenarios.",
+  "variants": [
+    {
+      "provider": "GEMINI",
+      "usedRag": true,
+      "inputFormat": "RAW",
+      "label": "Hybrid RAG baseline"
+    }
+  ],
+  "metrics": [
+    "accuracy",
+    "attack_type_accuracy",
+    "severity_accuracy",
+    "mitre_mapping_accuracy",
+    "analyst_utility_score",
+    "hallucination_rate"
+  ]
+}

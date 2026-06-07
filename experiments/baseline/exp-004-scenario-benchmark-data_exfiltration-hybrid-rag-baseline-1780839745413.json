@@ -1,0 +1,124 @@
+{
+  "experimentId": "exp-004-scenario-benchmark",
+  "variant": "hybrid-rag-baseline",
+  "metrics": {
+    "accuracy": 0.835,
+    "attack_type_accuracy": 0.75,
+    "severity_accuracy": 1,
+    "mitre_mapping_accuracy": 1,
+    "investigation_quality": 0.85,
+    "recommendation_quality": 0.75,
+    "triage_completeness": 1,
+    "analyst_utility_score": 0.8505,
+    "hallucination_rate": 0,
+    "relevance": 0.65,
+    "latency_ms": 16062,
+    "latencyMs": 16062
+  },
+  "prediction": {
+    "attackType": "Exfiltration",
+    "severity": "CRITICAL",
+    "summary": "A critical data exfiltration incident has been detected involving the 'svc_etl' account from host 10.20.3.15. Over 1.1GB of sensitive 'FINANCE_PII' data, specifically '/data/finance_q2.zip', was uploaded via 'curl' to a suspicious external domain, 'upload.evil-cdn.net' (185.220.101.44). Multiple security systems, including DLP, firewall, SIEM, and IDS, flagged this activity as a MITRE T1041 Exfiltration Over C2 Channel.",
+    "timeline": [
+      {
+        "timestamp": "Jun 11 22:10:01",
+        "event": "User 'svc_etl' connects to 'upload.evil-cdn.net:443'.",
+        "source": "proxy"
+      },
+      {
+        "timestamp": "Jun 11 22:10:45",
+        "event": "User 'svc_etl' uploads 524MB to 'upload.evil-cdn.net/bucket/xfer'.",
+        "source": "proxy"
+      },
+      {
+        "timestamp": "Jun 11 22:11:02",
+        "event": "User 'svc_etl' uploads 612MB to 'upload.evil-cdn.net/bucket/xfer'.",
+        "source": "proxy"
+      },
+      {
+        "timestamp": "Jun 11 22:11:18",
+        "event": "Outbound anomaly detected: 10.20.3.15 sent 1.1GB to 185.220.101.44.",
+        "source": "firewall"
+      },
+      {
+        "timestamp": "Jun 11 22:11:19",
+        "event": "Sensitive label 'FINANCE_PII' detected in outbound transfer by 'svc_etl'.",
+        "source": "dlp"
+      },
+      {
+        "timestamp": "Jun 11 22:11:20",
+        "event": "Data exfiltration pattern identified: large encrypted upload to rare external domain.",
+        "source": "siem"
+      },
+      {
+        "timestamp": "Jun 11 22:11:21",
+        "event": "MITRE T1041 Exfiltration Over C2 Channel suspected from host 10.20.3.15.",
+        "source": "ids"
+      },
+      {
+        "timestamp": "Jun 11 22:11:22",
+        "event": "TLS SNI 'upload.evil-cdn.net' confirmed for client 'svc_etl'.",
+        "source": "proxy"
+      },
+      {
+        "timestamp": "Jun 11 22:11:23",
+        "event": "Volume spike (14x baseline) detected from 10.20.3.15 to 185.220.101.44:443.",
+        "source": "netflow"
+      },
+      {
+        "timestamp": "Jun 11 22:11:24",
+        "event": "CRITICAL alert for data exfiltration by user 'svc_etl' to 'upload.evil-cdn.net'.",
+        "source": "siem"
+      },
+      {
+        "timestamp": "Jun 11 22:11:25",
+        "event": "Process 'curl' initiated by 'svc_etl' uploading '/data/finance_q2.zip'.",
+        "source": "edr"
+      }
+    ],
+    "recommendations": [
+      "Immediately isolate host 10.20.3.15 from the network to prevent further data loss or lateral movement.",
+      "Block all outbound connections to 'upload.evil-cdn.net' (185.220.101.44) at the firewall and proxy.",
+      "Investigate the 'svc_etl' account for compromise, including password reset, review of recent activity, and MFA logs.",
+      "Conduct a full forensic analysis of host 10.20.3.15 to determine the initial compromise vector, persistence mechanisms, and any other malicious activity.",
+      "Assess the full scope of data exfiltrated and notify relevant stakeholders (e.g., legal, privacy, management)."
+    ]
+  },
+  "groundTruth": {
+    "attackType": "Data Exfiltration",
+    "severity": "CRITICAL",
+    "mitreTechniques": [
+      "T1041"
+    ],
+    "requiredKeywords": [
+      "exfiltration",
+      "outbound",
+      "transfer",
+      "data"
+    ],
+    "forbiddenKeywords": [
+      "brute force",
+      "password spray"
+    ],
+    "minTimelineEvents": 3,
+    "expectedRecommendationThemes": [
+      "block",
+      "isolate",
+      "dlp",
+      "forensic"
+    ],
+    "requiredEntities": {
+      "users": [
+        "svc_etl"
+      ],
+      "ips": [
+        "10.20.3.15"
+      ]
+    }
+  },
+  "recordedAt": "2026-06-07T13:42:25.413Z",
+  "fixtureId": "data_exfiltration",
+  "scenario": "Data Exfiltration",
+  "difficulty": "hard",
+  "note": "Batch run via scripts/run-experiment.ts"
+}

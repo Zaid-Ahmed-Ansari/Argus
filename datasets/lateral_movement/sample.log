@@ -1,0 +1,13 @@
+Jun  8 14:30:01 dc-winlog[55001]: EventID=4624 LogonType=3 Account=svc_backup Source=10.10.5.12 Workstation=FILESRV01
+Jun  8 14:30:05 filesrv smb[55002]: SMB session opened user=svc_backup source=10.10.5.12 share=\\\\FILESRV01\\finance$
+Jun  8 14:30:12 filesrv smb[55003]: SMB read 842 files from \\\\FILESRV01\\finance$ by svc_backup
+Jun  8 14:31:01 jump rdp[55004]: RDP login success user=svc_backup source=10.10.5.12 dest=JUMP01
+Jun  8 14:31:18 jump rdp[55005]: RDP login success user=svc_backup source=JUMP01 dest=DBSRV02
+Jun  8 14:31:44 dbsrv winlog[55006]: EventID=4624 LogonType=10 Account=svc_backup Source=JUMP01 Interactive logon
+Jun  8 14:32:02 dbsrv audit[55007]: sqlcmd executed by svc_backup against master database from JUMP01
+Jun  8 14:32:15 siem[55008]: lateral movement chain detected: FILESRV01 -> JUMP01 -> DBSRV02 via svc_backup
+Jun  8 14:32:16 siem[55009]: MITRE technique T1021 Remote Services observed across 3 internal hosts
+Jun  8 14:32:17 firewall[55010]: internal east-west traffic spike 10.10.5.12 -> 10.10.8.20 port 445
+Jun  8 14:32:18 firewall[55011]: internal east-west traffic 10.10.8.20 -> 10.10.12.5 port 3389
+Jun  8 14:32:19 ids[55012]: suspicious pivot: service account svc_backup authenticating on 3 hosts in 2 minutes
+Jun  8 14:32:20 siem[55013]: ALERT severity=HIGH incident=lateral_movement account=svc_backup

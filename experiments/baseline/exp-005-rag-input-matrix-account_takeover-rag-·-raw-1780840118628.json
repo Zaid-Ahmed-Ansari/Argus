@@ -1,0 +1,130 @@
+{
+  "experimentId": "exp-005-rag-input-matrix",
+  "variant": "rag-·-raw",
+  "metrics": {
+    "accuracy": 0.855,
+    "attack_type_accuracy": 0.5,
+    "severity_accuracy": 1,
+    "mitre_mapping_accuracy": 1,
+    "investigation_quality": 0.925,
+    "recommendation_quality": 1,
+    "triage_completeness": 1,
+    "analyst_utility_score": 0.9378,
+    "hallucination_rate": 0,
+    "relevance": 0.75,
+    "latency_ms": 16658,
+    "latencyMs": 16658
+  },
+  "prediction": {
+    "attackType": "T1078 — Valid Accounts",
+    "severity": "CRITICAL",
+    "summary": "An attacker successfully compromised the 'sarah.chen' account, leveraging an MFA bypass and exhibiting impossible travel from London to Singapore within minutes. Post-compromise, the attacker created malicious inbox rules to forward emails to an external address and delete security alerts, indicating data exfiltration and evasion. Further access was gained via VPN and SSH to a bastion host, signifying potential lateral movement or privileged access. Automated systems detected these critical indicators, leading to a forced password reset for the compromised account.",
+    "timeline": [
+      {
+        "timestamp": "Jun 10 11:05:01",
+        "event": "Successful authentication for user sarah.chen from 203.0.113.88 (London, GB) on a known device.",
+        "source": "okta"
+      },
+      {
+        "timestamp": "Jun 10 11:05:02",
+        "event": "MFA bypass requested for user sarah.chen due to 'push_fatigue' from 203.0.113.88.",
+        "source": "okta"
+      },
+      {
+        "timestamp": "Jun 10 11:05:03",
+        "event": "Successful authentication for user sarah.chen from 198.18.50.22 (Singapore, SG) on a new device.",
+        "source": "okta"
+      },
+      {
+        "timestamp": "Jun 10 11:05:04",
+        "event": "IMPOSSIBLE_TRAVEL alert triggered for user sarah.chen (London to Singapore in 2 minutes).",
+        "source": "okta"
+      },
+      {
+        "timestamp": "Jun 10 11:05:10",
+        "event": "User sarah.chen created inbox rule: forward all to attacker@dropmail.cc.",
+        "source": "mail exch"
+      },
+      {
+        "timestamp": "Jun 10 11:05:12",
+        "event": "User sarah.chen created inbox rule: delete security alerts.",
+        "source": "mail exch"
+      },
+      {
+        "timestamp": "Jun 10 11:05:15",
+        "event": "User sarah.chen connected via VPN from 198.18.50.22 (ASN=AS13335), first seen.",
+        "source": "vpn"
+      },
+      {
+        "timestamp": "Jun 10 11:05:18",
+        "event": "Accepted publickey authentication for sarah.chen from 198.18.50.22 on SSH bastion.",
+        "source": "ssh bastion"
+      },
+      {
+        "timestamp": "Jun 10 11:05:20",
+        "event": "SIEM detected account takeover indicators: impossible travel, MFA anomaly, mail forwarding.",
+        "source": "siem"
+      },
+      {
+        "timestamp": "Jun 10 11:05:21",
+        "event": "CRITICAL ALERT: User sarah.chen account compromise (T1078 Valid Accounts).",
+        "source": "siem"
+      },
+      {
+        "timestamp": "Jun 10 11:05:22",
+        "event": "Automated response: Admin password reset forced for sarah.chen.",
+        "source": "okta"
+      },
+      {
+        "timestamp": "Jun 10 11:05:23",
+        "event": "IDS detected session hijack risk score 92 for user sarah.chen from 198.18.50.22.",
+        "source": "ids"
+      }
+    ],
+    "recommendations": [
+      "Verify the automated password reset for 'sarah.chen' was successful and revoke all active sessions for the account.",
+      "Immediately block the attacker's source IP address (198.18.50.22) at network perimeter controls (firewall, security groups).",
+      "Investigate the MFA bypass mechanism ('push_fatigue') for 'sarah.chen' to understand how it was exploited and review MFA policies.",
+      "Analyze mail logs for 'sarah.chen' to confirm the extent of data exfiltration via forwarding rules and remove all malicious rules.",
+      "Examine VPN and SSH bastion logs for 'sarah.chen' from 198.18.50.22 to identify accessed resources, commands executed, and potential lateral movement.",
+      "Engage 'sarah.chen' to determine if their credentials were compromised through phishing or other means, and provide immediate security awareness training."
+    ]
+  },
+  "groundTruth": {
+    "attackType": "Account Takeover",
+    "severity": "CRITICAL",
+    "mitreTechniques": [
+      "T1078"
+    ],
+    "requiredKeywords": [
+      "takeover",
+      "impossible",
+      "travel",
+      "mfa"
+    ],
+    "forbiddenKeywords": [
+      "brute force",
+      "password spray"
+    ],
+    "minTimelineEvents": 4,
+    "expectedRecommendationThemes": [
+      "reset",
+      "revoke",
+      "session",
+      "mfa"
+    ],
+    "requiredEntities": {
+      "users": [
+        "sarah.chen"
+      ],
+      "ips": [
+        "198.18.50.22"
+      ]
+    }
+  },
+  "recordedAt": "2026-06-07T13:48:38.627Z",
+  "fixtureId": "account_takeover",
+  "scenario": "Account Takeover",
+  "difficulty": "hard",
+  "note": "Batch run via scripts/run-experiment.ts"
+}

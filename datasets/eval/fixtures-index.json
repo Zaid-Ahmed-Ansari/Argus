@@ -1,0 +1,15 @@
+{
+  "version": "2",
+  "fixtures": [
+    { "id": "brute_force", "scenario": "Brute Force", "difficulty": "easy", "mitre": ["T1110.001"] },
+    { "id": "password_spray", "scenario": "Password Spray", "difficulty": "easy", "mitre": ["T1110.003"] },
+    { "id": "credential_stuffing", "scenario": "Credential Stuffing", "difficulty": "medium", "mitre": ["T1110.004"] },
+    { "id": "privilege_escalation", "scenario": "Privilege Escalation", "difficulty": "medium", "mitre": ["T1548"] },
+    { "id": "lateral_movement", "scenario": "Lateral Movement", "difficulty": "hard", "mitre": ["T1021"] },
+    { "id": "suspicious_admin_activity", "scenario": "Suspicious Admin Activity", "difficulty": "medium", "mitre": ["T1078.004"] },
+    { "id": "account_takeover", "scenario": "Account Takeover", "difficulty": "hard", "mitre": ["T1078"] },
+    { "id": "data_exfiltration", "scenario": "Data Exfiltration", "difficulty": "hard", "mitre": ["T1041"] },
+    { "id": "web_shell", "scenario": "Web Shell Activity", "difficulty": "medium", "mitre": ["T1505.003"] },
+    { "id": "insider_threat", "scenario": "Insider Threat", "difficulty": "hard", "mitre": ["T1530"] }
+  ]
+}

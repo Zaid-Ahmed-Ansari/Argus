@@ -1,0 +1,120 @@
+{
+  "experimentId": "exp-003-raw-vs-structured",
+  "variant": "structured-events",
+  "metrics": {
+    "accuracy": 0.8633,
+    "attack_type_accuracy": 0.6667,
+    "severity_accuracy": 1,
+    "mitre_mapping_accuracy": 1,
+    "investigation_quality": 0.925,
+    "recommendation_quality": 0.75,
+    "triage_completeness": 1,
+    "analyst_utility_score": 0.8777,
+    "hallucination_rate": 0,
+    "relevance": 0.725,
+    "latency_ms": 10270,
+    "latencyMs": 10270
+  },
+  "prediction": {
+    "attackType": "Server Software Component: Web Shell (MITRE T1505.003)",
+    "severity": "CRITICAL",
+    "summary": "An attacker from IP 10.20.8.77 successfully uploaded a web shell named 'shell.php' to the '/uploads/' directory of a web server. Following the upload, the attacker used the web shell to execute commands such as 'whoami' and 'cat /etc/passwd', and attempted to download a second-stage payload. Multiple security systems, including WAF, IDS, and SIEM, detected and alerted on this malicious activity, confirming a critical web shell compromise.",
+    "timeline": [
+      {
+        "timestamp": "Jun 12 16:40:01",
+        "event": "Client 10.20.8.77 accessed /uploads/report.pdf.",
+        "source": "apache"
+      },
+      {
+        "timestamp": "Jun 12 16:40:05",
+        "event": "Client 10.20.8.77 uploaded 'shell.php' to /uploads/.",
+        "source": "apache"
+      },
+      {
+        "timestamp": "Jun 12 16:40:06",
+        "event": "WAF alerted on suspicious PHP upload to webroot /uploads/shell.php from 10.20.8.77.",
+        "source": "waf"
+      },
+      {
+        "timestamp": "Jun 12 16:40:10",
+        "event": "Client 10.20.8.77 executed 'whoami' command via /uploads/shell.php.",
+        "source": "apache"
+      },
+      {
+        "timestamp": "Jun 12 16:40:12",
+        "event": "Client 10.20.8.77 executed 'cat /etc/passwd' command via /uploads/shell.php.",
+        "source": "apache"
+      },
+      {
+        "timestamp": "Jun 12 16:40:15",
+        "event": "Client 10.20.8.77 attempted to download 'stage2' from http://evil.tld/ via /uploads/shell.php.",
+        "source": "apache"
+      },
+      {
+        "timestamp": "Jun 12 16:40:16",
+        "event": "IDS detected web shell activity: repeated POST to .php with cmd parameter.",
+        "source": "ids"
+      },
+      {
+        "timestamp": "Jun 12 16:40:17",
+        "event": "SIEM identified MITRE T1505.003 Server Software Component: Web Shell.",
+        "source": "siem"
+      },
+      {
+        "timestamp": "Jun 12 16:40:18",
+        "event": "ModSecurity blocked a SQLi probe from 10.20.8.77 targeting /uploads/shell.php.",
+        "source": "modsec"
+      },
+      {
+        "timestamp": "Jun 12 16:40:19",
+        "event": "SIEM issued CRITICAL alert for webshell /uploads/shell.php on host webserver01 from source 10.20.8.77.",
+        "source": "siem"
+      }
+    ],
+    "recommendations": [
+      "Immediately isolate the compromised web server (webserver01) to prevent further attacker activity and lateral movement.",
+      "Remove the uploaded web shell (/uploads/shell.php) and any other potentially malicious files (e.g., 'stage2' if downloaded) from the server.",
+      "Conduct a full forensic analysis of the web server to determine the initial compromise vector, the extent of attacker access, and any data exfiltration or system modifications.",
+      "Review web server access logs and other system logs for any additional suspicious activity from 10.20.8.77 or other related IPs.",
+      "Update WAF/IDS rules to proactively block similar web shell uploads, command execution patterns, and known malicious IPs/domains.",
+      "Implement application-level controls to restrict file uploads to specific types and locations, and enforce least privilege principles for web application directories."
+    ]
+  },
+  "groundTruth": {
+    "attackType": "Web Shell Activity",
+    "severity": "CRITICAL",
+    "mitreTechniques": [
+      "T1505.003"
+    ],
+    "requiredKeywords": [
+      "web",
+      "shell",
+      "php",
+      "post"
+    ],
+    "forbiddenKeywords": [
+      "password spray",
+      "insider"
+    ],
+    "minTimelineEvents": 3,
+    "expectedRecommendationThemes": [
+      "isolate",
+      "remove",
+      "patch",
+      "forensic"
+    ],
+    "requiredEntities": {
+      "ips": [
+        "10.20.8.77"
+      ],
+      "hosts": [
+        "webserver01"
+      ]
+    }
+  },
+  "recordedAt": "2026-06-07T13:40:09.020Z",
+  "fixtureId": "web_shell",
+  "scenario": "Web Shell Activity",
+  "difficulty": "medium",
+  "note": "Batch run via scripts/run-experiment.ts"
+}

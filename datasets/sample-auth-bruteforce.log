@@ -1,0 +1,10 @@
+Jun  4 12:01:03 server sshd[10234]: Failed password for admin from 192.168.1.50 port 48922 ssh2
+Jun  4 12:01:05 server sshd[10234]: Failed password for admin from 192.168.1.50 port 48922 ssh2
+Jun  4 12:01:08 server sshd[10234]: Failed password for admin from 192.168.1.50 port 48922 ssh2
+Jun  4 12:01:12 server sshd[10235]: Failed password for admin from 192.168.1.51 port 48930 ssh2
+Jun  4 12:01:15 server sshd[10235]: Failed password for admin from 192.168.1.51 port 48930 ssh2
+Jun  4 12:02:01 server sshd[10240]: Failed password for root from 10.0.0.99 port 51234 ssh2
+Jun  4 12:02:04 server sshd[10240]: Failed password for root from 10.0.0.99 port 51234 ssh2
+Jun  4 12:03:22 server sshd[10250]: Failed password for admin from 192.168.1.50 port 48922 ssh2
+Jun  4 12:04:01 server sshd[10255]: Accepted password for admin from 192.168.1.50 port 48922 ssh2
+Jun  4 12:04:02 server sshd[10255]: pam_unix(sshd:session): session opened for user admin

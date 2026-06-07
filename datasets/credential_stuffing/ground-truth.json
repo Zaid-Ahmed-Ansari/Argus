@@ -1,0 +1,19 @@
+{
+  "fixtureId": "credential_stuffing",
+  "scenario": "Credential Stuffing",
+  "difficulty": "medium",
+  "logFile": "datasets/credential_stuffing/sample.log",
+  "groundTruth": {
+    "attackType": "Credential Stuffing",
+    "severity": "HIGH",
+    "mitreTechniques": ["T1110.004"],
+    "requiredKeywords": ["credential", "distributed", "login", "reuse"],
+    "forbiddenKeywords": ["ransomware", "phishing email"],
+    "minTimelineEvents": 3,
+    "expectedRecommendationThemes": ["reset", "mfa", "block", "credential"],
+    "requiredEntities": {
+      "users": ["user@corp"],
+      "ips": ["198.51.100.123"]
+    }
+  }
+}

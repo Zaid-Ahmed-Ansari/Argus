@@ -1,0 +1,12 @@
+{
+  "breakpoints": [375, 768, 1280],
+  "out": "./src/bones",
+  "wait": 1200,
+  "color": "oklch(0.97 0 0)",
+  "darkColor": "oklch(0.269 0 0)",
+  "animate": "shimmer",
+  "shimmerColor": "oklch(0.99 0 0)",
+  "darkShimmerColor": "oklch(0.32 0 0)",
+  "speed": "1.8s",
+  "transition": 300
+}

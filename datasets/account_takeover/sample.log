@@ -1,0 +1,12 @@
+Jun 10 11:05:01 okta[77001]: SUCCESS auth user=sarah.chen ip=203.0.113.88 city=London country=GB device=known
+Jun 10 11:05:02 okta[77002]: MFA bypass requested user=sarah.chen reason=push_fatigue ip=203.0.113.88
+Jun 10 11:05:03 okta[77003]: SUCCESS auth user=sarah.chen ip=198.18.50.22 city=Singapore country=SG device=new
+Jun 10 11:05:04 okta[77004]: IMPOSSIBLE_TRAVEL alert user=sarah.chen London->Singapore in 2 minutes
+Jun 10 11:05:10 mail exch[77005]: sarah.chen created inbox rule: forward all to attacker@dropmail.cc
+Jun 10 11:05:12 mail exch[77006]: sarah.chen created inbox rule: delete security alerts
+Jun 10 11:05:15 vpn[77007]: sarah.chen connected from 198.18.50.22 ASN=AS13335 first_seen=true
+Jun 10 11:05:18 ssh bastion[77008]: Accepted publickey for sarah.chen from 198.18.50.22 port 51900
+Jun 10 11:05:20 siem[77009]: account takeover indicators: impossible travel + MFA anomaly + mail forwarding
+Jun 10 11:05:21 siem[77010]: ALERT severity=CRITICAL user=sarah.chen technique=T1078 Valid Accounts compromise
+Jun 10 11:05:22 okta[77011]: admin password reset forced for sarah.chen by automated response
+Jun 10 11:05:23 ids[77012]: session hijack risk score 92 for user sarah.chen source 198.18.50.22

@@ -1,0 +1,9 @@
+{
+  "source": "MITRE ATT&CK",
+  "title": "T1110 — Brute Force",
+  "metadata": {
+    "techniqueId": "T1110",
+    "tactic": "Credential Access"
+  },
+  "content": "Brute Force (T1110) is a MITRE ATT&CK technique where adversaries use trial-and-error to guess credentials. Sub-techniques include Password Guessing (T1110.001), Password Cracking (T1110.002), Password Spraying (T1110.003), and Credential Stuffing (T1110.004).\n\nIndicators in authentication logs:\n- Multiple failed login attempts from the same source IP within a short window\n- Failed attempts targeting privileged accounts (admin, root, administrator)\n- Successful login immediately following a burst of failures from the same IP\n- Distributed attempts across many IPs (credential stuffing or botnet)\n- Unusual geolocation or off-hours authentication for service accounts\n\nSeverity guidance:\n- LOW: Few isolated failures, no privileged targets, no success\n- MEDIUM: Sustained failures against standard accounts\n- HIGH: Privileged account targeting with eventual success or spray across many users\n- CRITICAL: Confirmed compromise of admin/root with evidence of lateral movement\n\nSOC investigation playbook:\n1. Identify source IPs and whether they are internal or external\n2. Correlate failed and successful events for the same username\n3. Check if MFA was bypassed or absent on the affected account\n4. Review account lockout policy effectiveness\n5. Block or rate-limit offending IPs at firewall/WAF\n6. Force password reset and session revocation for compromised accounts\n7. Hunt for follow-on activity: privilege escalation, new sessions, unusual commands\n\nRecommended containment:\n- Disable or lock affected accounts pending verification\n- Implement geo-blocking or VPN-only access for admin interfaces\n- Enable MFA on all privileged accounts\n- Deploy account lockout after N failed attempts"
+}

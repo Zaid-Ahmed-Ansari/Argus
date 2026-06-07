@@ -1,0 +1,10 @@
+Jun  9 02:45:01 prod auditd[66001]: type=USER_CMD pid=66001 uid=0 auid=1001 ses=8 msg='cwd="/root" cmd=userdel -r temp_contractor exe="/usr/sbin/userdel"'
+Jun  9 02:45:08 prod auditd[66002]: type=USER_CMD pid=66002 uid=0 auid=1001 ses=8 msg='cwd="/root" cmd=iptables -F exe="/usr/sbin/iptables"'
+Jun  9 02:45:15 prod bash[66003]: admin_jones executed: cat /etc/shadow
+Jun  9 02:45:22 prod auditd[66004]: type=USER_CMD pid=66004 uid=0 auid=1001 ses=8 msg='cwd="/root" cmd=systemctl stop auditd exe="/bin/systemctl"'
+Jun  9 02:45:30 prod auth[66005]: off-hours privileged session: admin_jones uid=0 login at 02:45 from 198.18.0.9
+Jun  9 02:45:35 prod siem[66006]: ALERT rule=suspicious_admin_activity user=admin_jones actions=firewall_flush,user_delete,audit_stop
+Jun  9 02:45:36 prod siem[66007]: baseline deviation: admin_jones typically active Mon-Fri 09:00-17:00 only
+Jun  9 02:45:37 prod auditd[66008]: type=USER_CMD pid=66008 uid=0 auid=1001 ses=8 msg='cwd="/root" cmd=history -c exe="/usr/bin/history"'
+Jun  9 02:45:38 prod siem[66008]: MITRE T1078.004 Cloud Accounts / Valid Accounts abuse by privileged admin
+Jun  9 02:45:39 prod auth[66009]: session closed for admin_jones duration=38s source=198.18.0.9

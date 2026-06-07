@@ -1,0 +1,120 @@
+{
+  "experimentId": "exp-002-rag-vs-no-rag",
+  "variant": "no-rag",
+  "metrics": {
+    "accuracy": 0.85,
+    "attack_type_accuracy": 0.75,
+    "severity_accuracy": 1,
+    "mitre_mapping_accuracy": 0,
+    "investigation_quality": 1,
+    "recommendation_quality": 1,
+    "triage_completeness": 1,
+    "analyst_utility_score": 0.955,
+    "hallucination_rate": 0,
+    "relevance": 0.925,
+    "latency_ms": 10473,
+    "latencyMs": 10473
+  },
+  "prediction": {
+    "attackType": "Brute Force (T1110)",
+    "severity": "HIGH",
+    "summary": "Multiple failed SSH login attempts were observed targeting the 'admin' and 'root' accounts from various IP addresses. This activity culminated in a successful SSH login for the 'admin' user from IP address 192.168.1.50, indicating a potential compromise of the administrator account after a sustained brute-force or password guessing attack.",
+    "timeline": [
+      {
+        "timestamp": "Jun 4 12:01:03",
+        "event": "Failed SSH password for user 'admin' from 192.168.1.50",
+        "source": "server sshd"
+      },
+      {
+        "timestamp": "Jun 4 12:01:05",
+        "event": "Failed SSH password for user 'admin' from 192.168.1.50",
+        "source": "server sshd"
+      },
+      {
+        "timestamp": "Jun 4 12:01:08",
+        "event": "Failed SSH password for user 'admin' from 192.168.1.50",
+        "source": "server sshd"
+      },
+      {
+        "timestamp": "Jun 4 12:01:12",
+        "event": "Failed SSH password for user 'admin' from 192.168.1.51",
+        "source": "server sshd"
+      },
+      {
+        "timestamp": "Jun 4 12:01:15",
+        "event": "Failed SSH password for user 'admin' from 192.168.1.51",
+        "source": "server sshd"
+      },
+      {
+        "timestamp": "Jun 4 12:02:01",
+        "event": "Failed SSH password for user 'root' from 10.0.0.99",
+        "source": "server sshd"
+      },
+      {
+        "timestamp": "Jun 4 12:02:04",
+        "event": "Failed SSH password for user 'root' from 10.0.0.99",
+        "source": "server sshd"
+      },
+      {
+        "timestamp": "Jun 4 12:03:22",
+        "event": "Failed SSH password for user 'admin' from 192.168.1.50",
+        "source": "server sshd"
+      },
+      {
+        "timestamp": "Jun 4 12:04:01",
+        "event": "Accepted SSH password for user 'admin' from 192.168.1.50",
+        "source": "server sshd"
+      },
+      {
+        "timestamp": "Jun 4 12:04:02",
+        "event": "SSH session opened for user 'admin'",
+        "source": "server sshd"
+      }
+    ],
+    "recommendations": [
+      "Immediately investigate the successful login by user 'admin' from 192.168.1.50, including reviewing recent activity, commands executed, and any changes made.",
+      "Verify if the 'admin' account compromise is legitimate or unauthorized. If unauthorized, reset the password, enforce multi-factor authentication (MFA), and rotate any associated credentials.",
+      "Block the source IP addresses (192.168.1.50, 192.168.1.51, 10.0.0.99) at the firewall or host level if they are external and not expected legitimate sources.",
+      "Review SSH server logs for any other successful logins or suspicious activity from these or other external IPs around the time of the incident.",
+      "Implement or strengthen brute-force protection mechanisms (e.g., fail2ban, account lockout policies) to prevent similar attacks in the future."
+    ]
+  },
+  "groundTruth": {
+    "attackType": "Brute Force",
+    "severity": "HIGH",
+    "mitreTechniques": [
+      "T1110.001"
+    ],
+    "requiredKeywords": [
+      "brute",
+      "failed",
+      "admin",
+      "password"
+    ],
+    "forbiddenKeywords": [
+      "malware",
+      "ransomware",
+      "sql injection"
+    ],
+    "minTimelineEvents": 2,
+    "expectedRecommendationThemes": [
+      "block",
+      "mfa",
+      "password",
+      "account"
+    ],
+    "requiredEntities": {
+      "users": [
+        "admin"
+      ],
+      "ips": [
+        "192.168.1.50"
+      ]
+    }
+  },
+  "recordedAt": "2026-06-07T13:32:28.074Z",
+  "fixtureId": "brute_force",
+  "scenario": "Brute Force",
+  "difficulty": "easy",
+  "note": "Batch run via scripts/run-experiment.ts"
+}

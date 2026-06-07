@@ -1,0 +1,12 @@
+Jun 13 17:55:01 files audit[101001]: user=emma.hr accessed /hr/salaries_2026.xlsx read count=1 host=FILE01
+Jun 13 17:55:10 files audit[101002]: user=emma.hr accessed /hr/performance_reviews.zip read count=1 host=FILE01
+Jun 13 17:55:22 files audit[101003]: user=emma.hr accessed /legal/merger_draft.docx read count=1 host=FILE01
+Jun 13 17:55:35 files audit[101004]: user=emma.hr bulk download 842MB archive /tmp/eh_export.zip host=FILE01
+Jun 13 17:55:40 usb edr[101005]: emma.hr copied 842MB to removable device E:\backup host=LAPTOP-HR-09
+Jun 13 17:55:45 vpn audit[101006]: emma.hr connected personal cloud sync client sync.evil-drop.io
+Jun 13 17:55:50 dlp[101007]: policy violation: HR confidential data staged for external sync by emma.hr
+Jun 13 17:55:51 siem[101008]: insider threat pattern: bulk sensitive file access + USB + cloud sync
+Jun 13 17:55:52 siem[101009]: user emma.hr resignation submitted 48 hours ago risk score elevated
+Jun 13 17:55:53 siem[101010]: MITRE T1530 Data from Cloud Storage / internal collection
+Jun 13 17:55:54 siem[101011]: ALERT severity=HIGH incident=insider_threat user=emma.hr
+Jun 13 17:55:55 hr audit[101012]: emma.hr accessed 47 files outside normal role scope in 54 minutes

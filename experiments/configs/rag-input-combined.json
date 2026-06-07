@@ -1,0 +1,39 @@
+{
+  "id": "exp-005-rag-input-matrix",
+  "name": "RAG × Input Format Matrix",
+  "category": "rag",
+  "description": "Full 2×2 factorial: retrieval on/off crossed with raw vs structured log input.",
+  "variants": [
+    {
+      "provider": "GEMINI",
+      "usedRag": false,
+      "inputFormat": "RAW",
+      "label": "No RAG · Raw"
+    },
+    {
+      "provider": "GEMINI",
+      "usedRag": true,
+      "inputFormat": "RAW",
+      "label": "RAG · Raw"
+    },
+    {
+      "provider": "GEMINI",
+      "usedRag": false,
+      "inputFormat": "STRUCTURED",
+      "label": "No RAG · Structured"
+    },
+    {
+      "provider": "GEMINI",
+      "usedRag": true,
+      "inputFormat": "STRUCTURED",
+      "label": "RAG · Structured"
+    }
+  ],
+  "metrics": [
+    "accuracy",
+    "investigation_quality",
+    "recommendation_quality",
+    "analyst_utility_score",
+    "latency_ms"
+  ]
+}

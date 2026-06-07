@@ -1,0 +1,19 @@
+{
+  "fixtureId": "data_exfiltration",
+  "scenario": "Data Exfiltration",
+  "difficulty": "hard",
+  "logFile": "datasets/data_exfiltration/sample.log",
+  "groundTruth": {
+    "attackType": "Data Exfiltration",
+    "severity": "CRITICAL",
+    "mitreTechniques": ["T1041"],
+    "requiredKeywords": ["exfiltration", "outbound", "transfer", "data"],
+    "forbiddenKeywords": ["brute force", "password spray"],
+    "minTimelineEvents": 3,
+    "expectedRecommendationThemes": ["block", "isolate", "dlp", "forensic"],
+    "requiredEntities": {
+      "users": ["svc_etl"],
+      "ips": ["10.20.3.15"]
+    }
+  }
+}

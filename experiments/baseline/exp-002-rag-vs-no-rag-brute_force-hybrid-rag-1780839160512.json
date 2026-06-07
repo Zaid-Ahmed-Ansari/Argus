@@ -1,0 +1,121 @@
+{
+  "experimentId": "exp-002-rag-vs-no-rag",
+  "variant": "hybrid-rag",
+  "metrics": {
+    "accuracy": 0.65,
+    "attack_type_accuracy": 0.75,
+    "severity_accuracy": 0,
+    "mitre_mapping_accuracy": 0,
+    "investigation_quality": 1,
+    "recommendation_quality": 1,
+    "triage_completeness": 1,
+    "analyst_utility_score": 0.895,
+    "hallucination_rate": 0,
+    "relevance": 0.925,
+    "latency_ms": 12430,
+    "latencyMs": 12430
+  },
+  "prediction": {
+    "attackType": "Brute Force (T1110) leading to Valid Accounts (T1078)",
+    "severity": "CRITICAL",
+    "summary": "Multiple SSH brute-force attempts were detected targeting privileged accounts 'admin' and 'root' from various source IPs. A critical event occurred when the 'admin' account was successfully compromised from IP 192.168.1.50 after a series of failed password attempts. This indicates a successful brute-force attack and unauthorized access to a privileged account.",
+    "timeline": [
+      {
+        "timestamp": "Jun 4 12:01:03",
+        "event": "Failed password for user 'admin'",
+        "source": "192.168.1.50"
+      },
+      {
+        "timestamp": "Jun 4 12:01:05",
+        "event": "Failed password for user 'admin'",
+        "source": "192.168.1.50"
+      },
+      {
+        "timestamp": "Jun 4 12:01:08",
+        "event": "Failed password for user 'admin'",
+        "source": "192.168.1.50"
+      },
+      {
+        "timestamp": "Jun 4 12:01:12",
+        "event": "Failed password for user 'admin'",
+        "source": "192.168.1.51"
+      },
+      {
+        "timestamp": "Jun 4 12:01:15",
+        "event": "Failed password for user 'admin'",
+        "source": "192.168.1.51"
+      },
+      {
+        "timestamp": "Jun 4 12:02:01",
+        "event": "Failed password for user 'root'",
+        "source": "10.0.0.99"
+      },
+      {
+        "timestamp": "Jun 4 12:02:04",
+        "event": "Failed password for user 'root'",
+        "source": "10.0.0.99"
+      },
+      {
+        "timestamp": "Jun 4 12:03:22",
+        "event": "Failed password for user 'admin'",
+        "source": "192.168.1.50"
+      },
+      {
+        "timestamp": "Jun 4 12:04:01",
+        "event": "Accepted password for user 'admin'",
+        "source": "192.168.1.50"
+      },
+      {
+        "timestamp": "Jun 4 12:04:02",
+        "event": "Session opened for user 'admin'",
+        "source": "192.168.1.50"
+      }
+    ],
+    "recommendations": [
+      "Immediately block the source IP 192.168.1.50 at the network perimeter (firewall/security group) to prevent further access.",
+      "Disable the compromised 'admin' account and force a password reset. Revoke all active sessions for this user.",
+      "Initiate a full forensic investigation into the 'admin' session opened from 192.168.1.50 to determine the extent of compromise, including commands executed, files accessed, and any lateral movement attempts.",
+      "Review authentication logs for other privileged accounts (e.g., 'root') for similar brute-force attempts or successful logins from suspicious IPs.",
+      "Implement stronger authentication mechanisms for SSH, such as key-based authentication and multi-factor authentication (MFA), especially for privileged accounts.",
+      "Deploy or configure rate-limiting tools (e.g., fail2ban) to automatically block IPs after a defined number of failed login attempts."
+    ]
+  },
+  "groundTruth": {
+    "attackType": "Brute Force",
+    "severity": "HIGH",
+    "mitreTechniques": [
+      "T1110.001"
+    ],
+    "requiredKeywords": [
+      "brute",
+      "failed",
+      "admin",
+      "password"
+    ],
+    "forbiddenKeywords": [
+      "malware",
+      "ransomware",
+      "sql injection"
+    ],
+    "minTimelineEvents": 2,
+    "expectedRecommendationThemes": [
+      "block",
+      "mfa",
+      "password",
+      "account"
+    ],
+    "requiredEntities": {
+      "users": [
+        "admin"
+      ],
+      "ips": [
+        "192.168.1.50"
+      ]
+    }
+  },
+  "recordedAt": "2026-06-07T13:32:40.511Z",
+  "fixtureId": "brute_force",
+  "scenario": "Brute Force",
+  "difficulty": "easy",
+  "note": "Batch run via scripts/run-experiment.ts"
+}

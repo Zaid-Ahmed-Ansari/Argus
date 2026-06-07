@@ -1,0 +1,121 @@
+{
+  "experimentId": "exp-003-raw-vs-structured",
+  "variant": "raw-logs",
+  "metrics": {
+    "accuracy": 0.605,
+    "attack_type_accuracy": 0.75,
+    "severity_accuracy": 0,
+    "mitre_mapping_accuracy": 0,
+    "investigation_quality": 0.925,
+    "recommendation_quality": 1,
+    "triage_completeness": 1,
+    "analyst_utility_score": 0.8627,
+    "hallucination_rate": 0,
+    "relevance": 0.825,
+    "latency_ms": 7994,
+    "latencyMs": 7994
+  },
+  "prediction": {
+    "attackType": "Credential Access - Brute Force",
+    "severity": "CRITICAL",
+    "summary": "A series of brute-force attempts targeting SSH services on the server were observed. Multiple failed login attempts for users 'admin' and 'root' originated from various IP addresses. The attack culminated in a successful login for the 'admin' user from IP address 192.168.1.50, indicating a potential compromise.",
+    "timeline": [
+      {
+        "timestamp": "Jun 4 12:01:03",
+        "event": "Failed password for user 'admin' from 192.168.1.50",
+        "source": "sshd"
+      },
+      {
+        "timestamp": "Jun 4 12:01:05",
+        "event": "Failed password for user 'admin' from 192.168.1.50",
+        "source": "sshd"
+      },
+      {
+        "timestamp": "Jun 4 12:01:08",
+        "event": "Failed password for user 'admin' from 192.168.1.50",
+        "source": "sshd"
+      },
+      {
+        "timestamp": "Jun 4 12:01:12",
+        "event": "Failed password for user 'admin' from 192.168.1.51",
+        "source": "sshd"
+      },
+      {
+        "timestamp": "Jun 4 12:01:15",
+        "event": "Failed password for user 'admin' from 192.168.1.51",
+        "source": "sshd"
+      },
+      {
+        "timestamp": "Jun 4 12:02:01",
+        "event": "Failed password for user 'root' from 10.0.0.99",
+        "source": "sshd"
+      },
+      {
+        "timestamp": "Jun 4 12:02:04",
+        "event": "Failed password for user 'root' from 10.0.0.99",
+        "source": "sshd"
+      },
+      {
+        "timestamp": "Jun 4 12:03:22",
+        "event": "Failed password for user 'admin' from 192.168.1.50",
+        "source": "sshd"
+      },
+      {
+        "timestamp": "Jun 4 12:04:01",
+        "event": "Accepted password for user 'admin' from 192.168.1.50",
+        "source": "sshd"
+      },
+      {
+        "timestamp": "Jun 4 12:04:02",
+        "event": "Session opened for user 'admin'",
+        "source": "pam_unix(sshd:session)"
+      }
+    ],
+    "recommendations": [
+      "Immediately isolate the compromised server to prevent further lateral movement.",
+      "Force a password reset for the 'admin' user and all other privileged accounts.",
+      "Investigate the activities of the 'admin' user session from 192.168.1.50 starting at 12:04:02 for any malicious actions.",
+      "Block the attacking IP addresses (192.168.1.50, 192.168.1.51, 10.0.0.99) at the network perimeter firewall.",
+      "Implement stronger authentication mechanisms (e.g., MFA, SSH keys) and rate-limiting for SSH services.",
+      "Review system logs for any post-compromise activity, new user accounts, or unauthorized configuration changes."
+    ]
+  },
+  "groundTruth": {
+    "attackType": "Brute Force",
+    "severity": "HIGH",
+    "mitreTechniques": [
+      "T1110.001"
+    ],
+    "requiredKeywords": [
+      "brute",
+      "failed",
+      "admin",
+      "password"
+    ],
+    "forbiddenKeywords": [
+      "malware",
+      "ransomware",
+      "sql injection"
+    ],
+    "minTimelineEvents": 2,
+    "expectedRecommendationThemes": [
+      "block",
+      "mfa",
+      "password",
+      "account"
+    ],
+    "requiredEntities": {
+      "users": [
+        "admin"
+      ],
+      "ips": [
+        "192.168.1.50"
+      ]
+    }
+  },
+  "recordedAt": "2026-06-07T13:36:43.136Z",
+  "fixtureId": "brute_force",
+  "scenario": "Brute Force",
+  "difficulty": "easy",
+  "note": "Batch run via scripts/run-experiment.ts"
+}

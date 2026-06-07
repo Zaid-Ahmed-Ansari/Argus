@@ -1,0 +1,19 @@
+{
+  "fixtureId": "account_takeover",
+  "scenario": "Account Takeover",
+  "difficulty": "hard",
+  "logFile": "datasets/account_takeover/sample.log",
+  "groundTruth": {
+    "attackType": "Account Takeover",
+    "severity": "CRITICAL",
+    "mitreTechniques": ["T1078"],
+    "requiredKeywords": ["takeover", "impossible", "travel", "mfa"],
+    "forbiddenKeywords": ["brute force", "password spray"],
+    "minTimelineEvents": 4,
+    "expectedRecommendationThemes": ["reset", "revoke", "session", "mfa"],
+    "requiredEntities": {
+      "users": ["sarah.chen"],
+      "ips": ["198.18.50.22"]
+    }
+  }
+}

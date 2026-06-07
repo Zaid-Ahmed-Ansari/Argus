@@ -1,0 +1,121 @@
+{
+  "experimentId": "exp-005-rag-input-matrix",
+  "variant": "no-rag-·-raw",
+  "metrics": {
+    "accuracy": 0.805,
+    "attack_type_accuracy": 0.75,
+    "severity_accuracy": 1,
+    "mitre_mapping_accuracy": 0,
+    "investigation_quality": 0.925,
+    "recommendation_quality": 1,
+    "triage_completeness": 1,
+    "analyst_utility_score": 0.9227,
+    "hallucination_rate": 0,
+    "relevance": 0.825,
+    "latency_ms": 8229,
+    "latencyMs": 8229
+  },
+  "prediction": {
+    "attackType": "Credential Access: Brute Force",
+    "severity": "HIGH",
+    "summary": "Multiple failed SSH login attempts were observed for 'admin' and 'root' users from various IP addresses. Subsequently, a brute force attack against the 'admin' user from 192.168.1.50 was successful, leading to an authenticated session being opened. This indicates a compromise of an administrative account.",
+    "timeline": [
+      {
+        "timestamp": "Jun  4 12:01:03",
+        "event": "Failed password for user admin from 192.168.1.50",
+        "source": "server sshd"
+      },
+      {
+        "timestamp": "Jun  4 12:01:05",
+        "event": "Failed password for user admin from 192.168.1.50",
+        "source": "server sshd"
+      },
+      {
+        "timestamp": "Jun  4 12:01:08",
+        "event": "Failed password for user admin from 192.168.1.50",
+        "source": "server sshd"
+      },
+      {
+        "timestamp": "Jun  4 12:01:12",
+        "event": "Failed password for user admin from 192.168.1.51",
+        "source": "server sshd"
+      },
+      {
+        "timestamp": "Jun  4 12:01:15",
+        "event": "Failed password for user admin from 192.168.1.51",
+        "source": "server sshd"
+      },
+      {
+        "timestamp": "Jun  4 12:02:01",
+        "event": "Failed password for user root from 10.0.0.99",
+        "source": "server sshd"
+      },
+      {
+        "timestamp": "Jun  4 12:02:04",
+        "event": "Failed password for user root from 10.0.0.99",
+        "source": "server sshd"
+      },
+      {
+        "timestamp": "Jun  4 12:03:22",
+        "event": "Failed password for user admin from 192.168.1.50",
+        "source": "server sshd"
+      },
+      {
+        "timestamp": "Jun  4 12:04:01",
+        "event": "Accepted password for user admin from 192.168.1.50",
+        "source": "server sshd"
+      },
+      {
+        "timestamp": "Jun  4 12:04:02",
+        "event": "Session opened for user admin",
+        "source": "server sshd pam_unix"
+      }
+    ],
+    "recommendations": [
+      "Immediately isolate the compromised server to prevent further lateral movement or data exfiltration.",
+      "Force a password reset for the 'admin' user and all other administrative accounts on the affected system and any linked systems.",
+      "Investigate all activities performed by the 'admin' user from 192.168.1.50 after the successful login at 12:04:01.",
+      "Block the source IP addresses 192.168.1.50, 192.168.1.51, and 10.0.0.99 at the network perimeter firewall.",
+      "Implement strong password policies, account lockout thresholds, and multi-factor authentication (MFA) for all SSH access.",
+      "Review system logs for any new user accounts, modified configurations, or installed malicious software."
+    ]
+  },
+  "groundTruth": {
+    "attackType": "Brute Force",
+    "severity": "HIGH",
+    "mitreTechniques": [
+      "T1110.001"
+    ],
+    "requiredKeywords": [
+      "brute",
+      "failed",
+      "admin",
+      "password"
+    ],
+    "forbiddenKeywords": [
+      "malware",
+      "ransomware",
+      "sql injection"
+    ],
+    "minTimelineEvents": 2,
+    "expectedRecommendationThemes": [
+      "block",
+      "mfa",
+      "password",
+      "account"
+    ],
+    "requiredEntities": {
+      "users": [
+        "admin"
+      ],
+      "ips": [
+        "192.168.1.50"
+      ]
+    }
+  },
+  "recordedAt": "2026-06-07T13:42:59.675Z",
+  "fixtureId": "brute_force",
+  "scenario": "Brute Force",
+  "difficulty": "easy",
+  "note": "Batch run via scripts/run-experiment.ts"
+}

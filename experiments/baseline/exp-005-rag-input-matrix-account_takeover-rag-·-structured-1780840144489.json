@@ -1,0 +1,129 @@
+{
+  "experimentId": "exp-005-rag-input-matrix",
+  "variant": "rag-·-structured",
+  "metrics": {
+    "accuracy": 0.9,
+    "attack_type_accuracy": 0.5,
+    "severity_accuracy": 1,
+    "mitre_mapping_accuracy": 1,
+    "investigation_quality": 1,
+    "recommendation_quality": 1,
+    "triage_completeness": 1,
+    "analyst_utility_score": 0.97,
+    "hallucination_rate": 0,
+    "relevance": 0.85,
+    "latency_ms": 13347,
+    "latencyMs": 13347
+  },
+  "prediction": {
+    "attackType": "T1078 — Valid Accounts",
+    "severity": "CRITICAL",
+    "summary": "A critical account takeover incident involving user 'sarah.chen' has been detected. The attack began with an MFA bypass request followed by an impossible travel alert, indicating simultaneous logins from London and Singapore. The attacker, operating from Singapore (198.18.50.22), proceeded to create email forwarding rules to an external address and rules to delete security alerts, before connecting to the VPN and SSH bastion. Automated systems have flagged this as a T1078 Valid Accounts compromise and initiated a password reset.",
+    "timeline": [
+      {
+        "timestamp": "Jun 10 11:05:01",
+        "event": "Successful authentication for user sarah.chen from London (203.0.113.88).",
+        "source": "okta"
+      },
+      {
+        "timestamp": "Jun 10 11:05:02",
+        "event": "MFA bypass requested for user sarah.chen from London (203.0.113.88) due to push_fatigue.",
+        "source": "okta"
+      },
+      {
+        "timestamp": "Jun 10 11:05:03",
+        "event": "Successful authentication for user sarah.chen from Singapore (198.18.50.22) on a new device.",
+        "source": "okta"
+      },
+      {
+        "timestamp": "Jun 10 11:05:04",
+        "event": "IMPOSSIBLE_TRAVEL alert triggered for sarah.chen (London to Singapore in 2 minutes).",
+        "source": "okta"
+      },
+      {
+        "timestamp": "Jun 10 11:05:10",
+        "event": "User sarah.chen created an inbox rule to forward all emails to attacker@dropmail.cc.",
+        "source": "mail exch"
+      },
+      {
+        "timestamp": "Jun 10 11:05:12",
+        "event": "User sarah.chen created an inbox rule to delete security alerts.",
+        "source": "mail exch"
+      },
+      {
+        "timestamp": "Jun 10 11:05:15",
+        "event": "User sarah.chen connected to VPN from 198.18.50.22 (first_seen=true).",
+        "source": "vpn"
+      },
+      {
+        "timestamp": "Jun 10 11:05:18",
+        "event": "SSH publickey authentication accepted for sarah.chen from 198.18.50.22 on bastion host.",
+        "source": "ssh bastion"
+      },
+      {
+        "timestamp": "Jun 10 11:05:20",
+        "event": "SIEM identified account takeover indicators: impossible travel, MFA anomaly, and mail forwarding.",
+        "source": "siem"
+      },
+      {
+        "timestamp": "Jun 10 11:05:21",
+        "event": "CRITICAL SIEM alert for user sarah.chen, technique T1078 Valid Accounts compromise.",
+        "source": "siem"
+      },
+      {
+        "timestamp": "Jun 10 11:05:22",
+        "event": "Automated response forced an admin password reset for sarah.chen.",
+        "source": "okta"
+      },
+      {
+        "timestamp": "Jun 10 11:05:23",
+        "event": "IDS reported a session hijack risk score of 92 for user sarah.chen from source 198.18.50.22.",
+        "source": "ids"
+      }
+    ],
+    "recommendations": [
+      "Verify the legitimacy of the initial login from London (203.0.113.88) and investigate the MFA bypass request for 'sarah.chen'.",
+      "Immediately revoke all active sessions for 'sarah.chen' and ensure the password reset was successful and effective across all integrated systems.",
+      "Investigate all activities performed by 'sarah.chen' from IP 198.18.50.22 on the VPN and SSH bastion, including command execution, file access, and any lateral movement.",
+      "Block the malicious source IP (198.18.50.22) at network perimeter controls (firewall, security groups).",
+      "Analyze the created email forwarding rule to 'attacker@dropmail.cc' and the rule to delete security alerts for further indicators of compromise and to prevent data exfiltration."
+    ]
+  },
+  "groundTruth": {
+    "attackType": "Account Takeover",
+    "severity": "CRITICAL",
+    "mitreTechniques": [
+      "T1078"
+    ],
+    "requiredKeywords": [
+      "takeover",
+      "impossible",
+      "travel",
+      "mfa"
+    ],
+    "forbiddenKeywords": [
+      "brute force",
+      "password spray"
+    ],
+    "minTimelineEvents": 4,
+    "expectedRecommendationThemes": [
+      "reset",
+      "revoke",
+      "session",
+      "mfa"
+    ],
+    "requiredEntities": {
+      "users": [
+        "sarah.chen"
+      ],
+      "ips": [
+        "198.18.50.22"
+      ]
+    }
+  },
+  "recordedAt": "2026-06-07T13:49:04.488Z",
+  "fixtureId": "account_takeover",
+  "scenario": "Account Takeover",
+  "difficulty": "hard",
+  "note": "Batch run via scripts/run-experiment.ts"
+}

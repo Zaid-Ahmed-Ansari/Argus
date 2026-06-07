@@ -1,0 +1,19 @@
+{
+  "fixtureId": "suspicious_admin_activity",
+  "scenario": "Suspicious Admin Activity",
+  "difficulty": "medium",
+  "logFile": "datasets/suspicious_admin_activity/sample.log",
+  "groundTruth": {
+    "attackType": "Suspicious Admin Activity",
+    "severity": "HIGH",
+    "mitreTechniques": ["T1078.004"],
+    "requiredKeywords": ["admin", "off-hours", "privileged", "suspicious"],
+    "forbiddenKeywords": ["brute force", "web shell"],
+    "minTimelineEvents": 3,
+    "expectedRecommendationThemes": ["disable", "review", "session", "audit"],
+    "requiredEntities": {
+      "users": ["admin_jones"],
+      "ips": ["198.18.0.9"]
+    }
+  }
+}

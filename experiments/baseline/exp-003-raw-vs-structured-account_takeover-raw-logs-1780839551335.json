@@ -1,0 +1,130 @@
+{
+  "experimentId": "exp-003-raw-vs-structured",
+  "variant": "raw-logs",
+  "metrics": {
+    "accuracy": 0.975,
+    "attack_type_accuracy": 1,
+    "severity_accuracy": 1,
+    "mitre_mapping_accuracy": 1,
+    "investigation_quality": 1,
+    "recommendation_quality": 0.75,
+    "triage_completeness": 1,
+    "analyst_utility_score": 0.93,
+    "hallucination_rate": 0,
+    "relevance": 0.925,
+    "latency_ms": 11208,
+    "latencyMs": 11208
+  },
+  "prediction": {
+    "attackType": "Account Takeover",
+    "severity": "CRITICAL",
+    "summary": "A critical account takeover incident involving user 'sarah.chen' has been detected. The incident began with an impossible travel scenario, where the user authenticated from London and then immediately from Singapore, followed by an MFA bypass request. The attacker subsequently created malicious inbox rules to forward emails and delete security alerts, then accessed internal resources via VPN and SSH. Automated systems initiated a password reset in response to the detected compromise.",
+    "timeline": [
+      {
+        "timestamp": "Jun 10 11:05:01",
+        "event": "User sarah.chen successfully authenticated from IP 203.0.113.88 (London).",
+        "source": "okta"
+      },
+      {
+        "timestamp": "Jun 10 11:05:02",
+        "event": "MFA bypass requested for user sarah.chen due to push fatigue.",
+        "source": "okta"
+      },
+      {
+        "timestamp": "Jun 10 11:05:03",
+        "event": "User sarah.chen successfully authenticated from IP 198.18.50.22 (Singapore) on a new device.",
+        "source": "okta"
+      },
+      {
+        "timestamp": "Jun 10 11:05:04",
+        "event": "Impossible travel alert triggered for user sarah.chen (London to Singapore in 2 minutes).",
+        "source": "okta"
+      },
+      {
+        "timestamp": "Jun 10 11:05:10",
+        "event": "User sarah.chen created an inbox rule to forward all emails to attacker@dropmail.cc.",
+        "source": "mail exch"
+      },
+      {
+        "timestamp": "Jun 10 11:05:12",
+        "event": "User sarah.chen created an inbox rule to delete security alerts.",
+        "source": "mail exch"
+      },
+      {
+        "timestamp": "Jun 10 11:05:15",
+        "event": "User sarah.chen connected to VPN from IP 198.18.50.22.",
+        "source": "vpn"
+      },
+      {
+        "timestamp": "Jun 10 11:05:18",
+        "event": "SSH access accepted for user sarah.chen from IP 198.18.50.22.",
+        "source": "ssh bastion"
+      },
+      {
+        "timestamp": "Jun 10 11:05:20",
+        "event": "SIEM detected account takeover indicators: impossible travel, MFA anomaly, mail forwarding.",
+        "source": "siem"
+      },
+      {
+        "timestamp": "Jun 10 11:05:21",
+        "event": "CRITICAL alert issued for user sarah.chen, technique T1078 Valid Accounts compromise.",
+        "source": "siem"
+      },
+      {
+        "timestamp": "Jun 10 11:05:22",
+        "event": "Automated response forced an admin password reset for sarah.chen.",
+        "source": "okta"
+      },
+      {
+        "timestamp": "Jun 10 11:05:23",
+        "event": "IDS detected high session hijack risk (score 92) for user sarah.chen from IP 198.18.50.22.",
+        "source": "ids"
+      }
+    ],
+    "recommendations": [
+      "Immediately verify the identity of the legitimate 'sarah.chen' and confirm if the activity from 198.18.50.22 was authorized.",
+      "Investigate the root cause of the MFA bypass and implement stronger controls or review MFA fatigue policies.",
+      "Analyze all activities performed by the compromised account from 198.18.50.22, including any data access, modifications, or further lateral movement.",
+      "Remove the malicious inbox rules and ensure no other persistence mechanisms or backdoors were established.",
+      "Force a password reset and re-enroll MFA for 'sarah.chen' with the legitimate user, ensuring all sessions are terminated.",
+      "Block the malicious IP address 198.18.50.22 at the network perimeter and investigate its origin."
+    ]
+  },
+  "groundTruth": {
+    "attackType": "Account Takeover",
+    "severity": "CRITICAL",
+    "mitreTechniques": [
+      "T1078"
+    ],
+    "requiredKeywords": [
+      "takeover",
+      "impossible",
+      "travel",
+      "mfa"
+    ],
+    "forbiddenKeywords": [
+      "brute force",
+      "password spray"
+    ],
+    "minTimelineEvents": 4,
+    "expectedRecommendationThemes": [
+      "reset",
+      "revoke",
+      "session",
+      "mfa"
+    ],
+    "requiredEntities": {
+      "users": [
+        "sarah.chen"
+      ],
+      "ips": [
+        "198.18.50.22"
+      ]
+    }
+  },
+  "recordedAt": "2026-06-07T13:39:11.334Z",
+  "fixtureId": "account_takeover",
+  "scenario": "Account Takeover",
+  "difficulty": "hard",
+  "note": "Batch run via scripts/run-experiment.ts"
+}

@@ -1,0 +1,19 @@
+{
+  "fixtureId": "privilege_escalation",
+  "scenario": "Privilege Escalation",
+  "difficulty": "medium",
+  "logFile": "datasets/privilege_escalation/sample.log",
+  "groundTruth": {
+    "attackType": "Privilege Escalation",
+    "severity": "CRITICAL",
+    "mitreTechniques": ["T1548"],
+    "requiredKeywords": ["privilege", "escalation", "sudo", "root"],
+    "forbiddenKeywords": ["password spray", "web shell upload"],
+    "minTimelineEvents": 3,
+    "expectedRecommendationThemes": ["isolate", "sudo", "account", "forensic"],
+    "requiredEntities": {
+      "users": ["www-data"],
+      "hosts": ["app"]
+    }
+  }
+}

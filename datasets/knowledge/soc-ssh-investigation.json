@@ -1,0 +1,9 @@
+{
+  "source": "SOC Playbook",
+  "title": "SSH Authentication Investigation",
+  "metadata": {
+    "category": "playbook",
+    "logType": "AUTH"
+  },
+  "content": "SSH authentication investigation playbook for Linux auth logs (sshd).\n\nTriage checklist:\n- Count failed vs successful events per username and source IP\n- Identify privileged targets: admin, root, ubuntu, ec2-user\n- Note time window density (failures per minute)\n- Flag Accepted password after burst of Failed password from same IP\n\nContainment options:\n- Block source IP at firewall or security group\n- Disable account and force password rotation\n- Require key-based auth for administrative access\n- Enable fail2ban or equivalent rate limiting\n\nEscalation criteria:\n- Confirmed login to admin/root after brute force\n- Multiple compromised accounts in same window\n- Evidence of command execution post-login\n\nReporting fields: source IPs, usernames, first/last event time, success after failure (yes/no), recommended severity."
+}

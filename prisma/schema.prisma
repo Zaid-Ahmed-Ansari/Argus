@@ -1,0 +1,220 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ─── Better Auth ───────────────────────────────────────────────────────────
+
+model User {
+  id            String     @id
+  name          String
+  email         String
+  emailVerified Boolean    @default(false)
+  image         String?
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
+  sessions      Session[]
+  accounts      Account[]
+  incidents     Incident[]
+  logUploads    LogUpload[]
+
+  @@unique([email])
+  @@map("user")
+}
+
+model Session {
+  id        String   @id
+  expiresAt DateTime
+  token     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  ipAddress String?
+  userAgent String?
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([token])
+  @@index([userId])
+  @@map("session")
+}
+
+model Account {
+  id                    String    @id
+  accountId             String
+  providerId            String
+  userId                String
+  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  accessToken           String?
+  refreshToken          String?
+  idToken               String?
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope                 String?
+  password              String?
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+
+  @@index([userId])
+  @@map("account")
+}
+
+model Verification {
+  id         String   @id
+  identifier String
+  value      String
+  expiresAt  DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([identifier])
+  @@map("verification")
+}
+
+// ─── Argus domain ──────────────────────────────────────────────────────────
+
+enum Severity {
+  LOW
+  MEDIUM
+  HIGH
+  CRITICAL
+}
+
+enum IncidentStatus {
+  OPEN
+  INVESTIGATING
+  RESOLVED
+  ARCHIVED
+}
+
+enum LogType {
+  AUTH
+  FIREWALL
+  WEB_SERVER
+  SIEM
+  OTHER
+}
+
+enum AiProvider {
+  GEMINI
+  OPENAI
+}
+
+enum InputFormat {
+  RAW
+  STRUCTURED
+}
+
+model Incident {
+  id         String         @id @default(cuid())
+  userId     String?
+  user       User?          @relation(fields: [userId], references: [id], onDelete: SetNull)
+  title      String
+  attackType String?
+  severity   Severity       @default(MEDIUM)
+  summary    String?        @db.Text
+  status     IncidentStatus @default(OPEN)
+  createdAt  DateTime       @default(now())
+  updatedAt  DateTime       @updatedAt
+
+  logFiles LogFile[]
+  analyses Analysis[]
+
+  @@index([severity])
+  @@index([createdAt(sort: Desc)])
+  @@index([userId])
+}
+
+// Staged upload before analysis (file on disk + DB metadata)
+model LogUpload {
+  id               String   @id @default(cuid())
+  userId           String
+  user             User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  originalFilename String
+  storagePath      String
+  mimeType         String?
+  sizeBytes        Int
+  lineCount        Int?
+  createdAt        DateTime @default(now())
+
+  @@index([userId])
+  @@index([createdAt])
+}
+
+model LogFile {
+  id         String   @id @default(cuid())
+  incidentId String
+  incident   Incident @relation(fields: [incidentId], references: [id], onDelete: Cascade)
+
+  filename     String?
+  storagePath  String?
+  sizeBytes    Int?
+  logType      LogType  @default(AUTH)
+  content      String   @db.Text
+  lineCount    Int?
+  createdAt    DateTime @default(now())
+  searchVector Unsupported("tsvector")? @map("search_vector")
+
+  @@index([incidentId])
+}
+
+model Analysis {
+  id         String   @id @default(cuid())
+  incidentId String
+  incident   Incident @relation(fields: [incidentId], references: [id], onDelete: Cascade)
+
+  provider    AiProvider  @default(GEMINI)
+  usedRag     Boolean     @default(false)
+  inputFormat InputFormat @default(RAW)
+
+  attackType      String?
+  severity        Severity
+  summary         String   @db.Text
+  timeline        Json
+  recommendations Json
+
+  modelVersion  String?
+  promptVersion String?
+  latencyMs     Int?
+  tokenCount    Int?
+  rawResponse   Json?
+
+  createdAt DateTime @default(now())
+
+  @@index([incidentId])
+  @@index([provider, usedRag, inputFormat])
+  @@index([createdAt(sort: Desc)])
+}
+
+// ─── RAG knowledge base (Phase 4) ──────────────────────────────────────────
+
+model KnowledgeDocument {
+  id        String   @id @default(cuid())
+  source    String
+  title     String
+  content   String   @db.Text
+  metadata  Json?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  chunks DocumentChunk[]
+
+  @@index([source])
+}
+
+model DocumentChunk {
+  id         String            @id @default(cuid())
+  documentId String
+  document   KnowledgeDocument   @relation(fields: [documentId], references: [id], onDelete: Cascade)
+  content    String            @db.Text
+  chunkIndex Int
+  metadata   Json?
+  createdAt  DateTime          @default(now())
+  searchVector Unsupported("tsvector")? @map("search_vector")
+  embedding  Json?
+
+  @@index([documentId])
+}

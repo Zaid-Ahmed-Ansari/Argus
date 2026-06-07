@@ -1,0 +1,19 @@
+{
+  "fixtureId": "web_shell",
+  "scenario": "Web Shell Activity",
+  "difficulty": "medium",
+  "logFile": "datasets/web_shell/sample.log",
+  "groundTruth": {
+    "attackType": "Web Shell Activity",
+    "severity": "CRITICAL",
+    "mitreTechniques": ["T1505.003"],
+    "requiredKeywords": ["web", "shell", "php", "post"],
+    "forbiddenKeywords": ["password spray", "insider"],
+    "minTimelineEvents": 3,
+    "expectedRecommendationThemes": ["isolate", "remove", "patch", "forensic"],
+    "requiredEntities": {
+      "ips": ["10.20.8.77"],
+      "hosts": ["webserver01"]
+    }
+  }
+}
