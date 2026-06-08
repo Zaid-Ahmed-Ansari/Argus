@@ -1,13 +1,8 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Providers } from "@/app/providers";
+import { createMetadata } from "@/lib/site-metadata";
 import "./globals.css";
-
-const appUrl =
-  process.env.NEXT_PUBLIC_APP_URL ??
-  (process.env.VERCEL_URL
-    ? `https://${process.env.VERCEL_URL}`
-    : "http://localhost:3000");
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -19,12 +14,12 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
-  metadataBase: new URL(appUrl),
-  title: "Argus — SOC Analyst Assistant",
-  description:
-    "Argus is an AI-powered Security Operations Center analyst assistant for incident analysis and research.",
-  // Favicon: src/app/icon.png and src/app/apple-icon.png (Next.js file metadata)
+export const metadata: Metadata = createMetadata();
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  themeColor: "#ffffff",
 };
 
 export default function RootLayout({
@@ -35,6 +30,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      data-scroll-behavior="smooth"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full">

@@ -16,9 +16,16 @@ export function getPgPool(): Pool {
       connectionString.includes("sslmode=require") ||
       process.env.DATABASE_SSL === "true";
 
+    const usesPgBouncer =
+      connectionString.includes("pgbouncer=true") ||
+      connectionString.includes(":6543");
+
     globalForPool.pool = new Pool({
       connectionString,
-      max: Number(process.env.DATABASE_POOL_MAX ?? 10),
+      // Supabase transaction pooler: keep connections low per serverless instance.
+      max: Number(
+        process.env.DATABASE_POOL_MAX ?? (usesPgBouncer ? 3 : 10),
+      ),
       idleTimeoutMillis: 30_000,
       connectionTimeoutMillis: 10_000,
       ssl: useSsl ? { rejectUnauthorized: false } : undefined,

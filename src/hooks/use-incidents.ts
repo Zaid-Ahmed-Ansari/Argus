@@ -1,6 +1,7 @@
 "use client";
 
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { INCIDENTS_LIST_QUERY_KEY } from "@/hooks/use-incidents-list";
 import type { AnalyzeResponse } from "@/types/api";
 
 type AnalyzeInput = {
@@ -39,6 +40,7 @@ export function useAnalyzeLogs() {
     mutationFn: analyzeLogs,
     onSuccess: () => {
       void queryClient.invalidateQueries({ queryKey: ["log-search"] });
+      void queryClient.invalidateQueries({ queryKey: [INCIDENTS_LIST_QUERY_KEY] });
     },
   });
 }

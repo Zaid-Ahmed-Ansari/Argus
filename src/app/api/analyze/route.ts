@@ -1,4 +1,5 @@
 import { analyzeAndPersistIncident } from "@/services/analysis/analyze-incident.service";
+import { revalidateIncidentsCache } from "@/lib/incident-cache.server";
 import {
   getDatabaseErrorMessage,
   isDatabaseConnectionError,
@@ -48,6 +49,8 @@ export async function POST(request: Request) {
       userId: session.user.id,
       usedRag: parsed.data.usedRag,
     });
+
+    revalidateIncidentsCache(session.user.id);
 
     return jsonSuccess(result);
   } catch (error) {

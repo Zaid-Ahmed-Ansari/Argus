@@ -1,10 +1,10 @@
-import { notFound, redirect } from "next/navigation";
+import { notFound } from "next/navigation";
 import {
   InvestigationWorkspace,
   buildInvestigationReport,
 } from "@/features/investigation";
 import { EmptyState } from "@/components/ui/empty-state";
-import { requireSession } from "@/lib/auth-session";
+import { getSession } from "@/lib/auth-session";
 import { incidentRepository } from "@/services/repositories/incident.repository";
 import { incidentIdSchema } from "@/lib/validators/incidents";
 
@@ -13,11 +13,7 @@ type PageProps = {
 };
 
 export default async function IncidentDetailPage({ params }: PageProps) {
-  const session = await requireSession();
-  if (!session) {
-    redirect("/sign-in");
-  }
-
+  const session = await getSession();
   const { id } = await params;
   const idParsed = incidentIdSchema.safeParse(id);
   if (!idParsed.success) {
@@ -26,7 +22,7 @@ export default async function IncidentDetailPage({ params }: PageProps) {
 
   const incident = await incidentRepository.findById(
     idParsed.data,
-    session.user.id,
+    session!.user.id,
   );
 
   if (!incident) {

@@ -7,6 +7,7 @@ import { LandingHero } from "@/features/landing/components/landing-hero";
 import { HowItWorks } from "@/features/landing/components/how-it-works";
 import { LogSnippetSection } from "@/features/landing/components/log-snippet-section";
 import { DashboardPreview } from "@/features/landing/components/dashboard-preview";
+import { SiteFooter } from "@/components/layout/site-footer";
 import type { LandingUser } from "@/features/landing/types";
 
 type LandingPageProps = {
@@ -38,19 +39,7 @@ export function LandingPage({ user }: LandingPageProps) {
         <LandingCta user={user} />
       </main>
 
-      <footer className="border-t border-border">
-        <div className="mx-auto flex max-w-6xl flex-col gap-2 px-4 py-8 sm:flex-row sm:items-center sm:justify-between sm:px-6">
-          <p className="text-base text-muted-foreground">
-            Argus — SOC analyst assistant
-          </p>
-          {user ? (
-            <p className="text-base text-muted-foreground">
-              Signed in as{" "}
-              <span className="font-medium text-foreground">{user.email}</span>
-            </p>
-          ) : null}
-        </div>
-      </footer>
+      <SiteFooter />
     </div>
   );
 }

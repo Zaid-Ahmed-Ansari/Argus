@@ -1,5 +1,4 @@
-import { incidentRepository } from "@/services/repositories/incident.repository";
-import { analysisRepository } from "@/services/repositories/analysis.repository";
+import { getIncidentsListData } from "@/services/incidents/get-incidents-list-data";
 import {
   getDatabaseErrorMessage,
   isDatabaseConnectionError,
@@ -34,30 +33,13 @@ export async function GET(request: Request) {
       return jsonError("Invalid query parameters", 400, parsed.error.flatten());
     }
 
-    const userId = session.user.id;
-
-    const [incidents, total, severityCounts, recentAnalyses] = await Promise.all([
-      incidentRepository.findMany({
-        userId,
-        severity: parsed.data.severity,
-        limit: parsed.data.limit,
-        offset: parsed.data.offset,
-      }),
-      incidentRepository.count({ userId, severity: parsed.data.severity }),
-      incidentRepository.countBySeverity(userId),
-      analysisRepository.findRecentForUser(userId, 5),
-    ]);
-
-    return jsonSuccess({
-      incidents,
-      meta: {
-        total,
-        limit: parsed.data.limit,
-        offset: parsed.data.offset,
-        severityCounts,
-      },
-      recentAnalyses,
+    const data = await getIncidentsListData(session.user.id, {
+      severity: parsed.data.severity,
+      limit: parsed.data.limit,
+      offset: parsed.data.offset,
     });
+
+    return jsonSuccess(data);
   } catch (error) {
     console.error("[GET /api/incidents]", error);
 

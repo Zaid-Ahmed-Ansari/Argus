@@ -126,6 +126,7 @@ model Incident {
   @@index([severity])
   @@index([createdAt(sort: Desc)])
   @@index([userId])
+  @@index([userId, createdAt(sort: Desc)])
 }
 
 // Staged upload before analysis (file on disk + DB metadata)

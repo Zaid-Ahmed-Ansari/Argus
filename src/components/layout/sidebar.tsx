@@ -1,33 +1,48 @@
 "use client";
 
-import Link from "next/link";
+import { memo, useEffect } from "react";
 import { usePathname, useRouter } from "next/navigation";
-import {
-  LayoutDashboard,
-  Upload,
-  ShieldAlert,
-  FlaskConical,
-  LogOut,
-} from "lucide-react";
+import { LogOut } from "lucide-react";
 import { authClient } from "@/lib/auth-client";
+import { APP_NAV_ITEMS } from "@/lib/app-nav-items";
+import { AppNavLink } from "@/components/layout/app-nav-link";
+import { BrandLogo } from "@/components/brand/brand-logo";
 import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
 import { toast } from "@/lib/toast";
 
-const navItems = [
-  { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
-  { href: "/upload", label: "Upload", icon: Upload },
-  { href: "/incidents", label: "Incidents", icon: ShieldAlert },
-  { href: "/research", label: "Research", icon: FlaskConical },
-];
-
-type SidebarProps = {
-  logo: React.ReactNode;
-};
-
-export function Sidebar({ logo }: SidebarProps) {
+function SidebarNav() {
   const pathname = usePathname();
+
+  return (
+    <nav className="flex flex-1 flex-col gap-1 px-3">
+      {APP_NAV_ITEMS.map((item) => {
+        const active =
+          pathname === item.href || pathname.startsWith(`${item.href}/`);
+        return (
+          <AppNavLink
+            key={item.href}
+            href={item.href}
+            label={item.label}
+            active={active}
+            icon={item.icon}
+            variant="sidebar"
+          />
+        );
+      })}
+    </nav>
+  );
+}
+
+const MemoizedSidebarNav = memo(SidebarNav);
+
+function SidebarInner() {
   const router = useRouter();
+
+  useEffect(() => {
+    for (const { href } of APP_NAV_ITEMS) {
+      router.prefetch(href);
+    }
+  }, [router]);
 
   const handleSignOut = async () => {
     try {
@@ -41,38 +56,13 @@ export function Sidebar({ logo }: SidebarProps) {
   };
 
   return (
-    <aside className="flex h-full w-[260px] shrink-0 flex-col border-r border-border bg-sidebar">
+    <aside className="hidden h-full w-[260px] shrink-0 flex-col border-r border-border bg-sidebar lg:flex">
       <div className="px-5 py-6">
-        {logo}
+        <BrandLogo href="/dashboard" size={28} wordmarkClassName="text-lg" />
         <p className="mt-2 text-base text-muted-foreground">SOC assistant</p>
       </div>
 
-      <nav className="flex flex-1 flex-col gap-1 px-3">
-        {navItems.map(({ href, label, icon: Icon }) => {
-          const active =
-            pathname === href || pathname.startsWith(`${href}/`);
-          return (
-            <Link
-              key={href}
-              href={href}
-              className={cn(
-                "flex h-11 items-center gap-3 rounded-md px-3 text-[1.05rem] transition-[background-color,color,transform] duration-200",
-                active
-                  ? "border-l-2 border-primary bg-accent pl-[10px] font-medium text-accent-foreground"
-                  : "text-muted-foreground hover:bg-muted/80 hover:text-foreground",
-              )}
-            >
-              <Icon
-                className={cn(
-                  "size-[18px] shrink-0",
-                  active ? "text-primary" : "opacity-70",
-                )}
-              />
-              {label}
-            </Link>
-          );
-        })}
-      </nav>
+      <MemoizedSidebarNav />
 
       <div className="border-t border-border p-3">
         <Button
@@ -87,3 +77,5 @@ export function Sidebar({ logo }: SidebarProps) {
     </aside>
   );
 }
+
+export const Sidebar = memo(SidebarInner);

@@ -27,7 +27,19 @@ function parseRecommendations(value: unknown): string[] {
   return value.filter((item): item is string => typeof item === "string");
 }
 
-export function mapIncident(incident: PrismaIncident): IncidentSummary {
+export function mapIncident(
+  incident: Pick<
+    PrismaIncident,
+    | "id"
+    | "title"
+    | "attackType"
+    | "severity"
+    | "summary"
+    | "status"
+    | "createdAt"
+    | "updatedAt"
+  >,
+): IncidentSummary {
   return {
     id: incident.id,
     title: incident.title,

@@ -91,9 +91,9 @@ export function AttackChainGraph({
         ) : null
       }
     >
-      <div className="grid gap-6 lg:grid-cols-[320px_1fr]">
+      <div className="grid gap-6 lg:grid-cols-[1fr_320px]">
         <div
-          className="h-[min(640px,70vh)] rounded-lg border border-border bg-card"
+          className="order-2 h-[min(360px,50vh)] rounded-lg border border-border bg-card sm:h-[min(480px,60vh)] lg:order-1 lg:h-[min(640px,70vh)]"
           style={{ minHeight: sorted.length * 100 + 80 }}
         >
           <ReactFlow
@@ -116,7 +116,7 @@ export function AttackChainGraph({
           </ReactFlow>
         </div>
 
-        <div className="rounded-lg border border-border bg-card p-6">
+        <div className="order-1 rounded-lg border border-border bg-card p-4 sm:p-6 lg:order-2">
           <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
             Stage Detail
           </p>

@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { memo } from "react";
 import { getLogoUrl } from "@/lib/brand";
 import { cn } from "@/lib/utils";
 
@@ -12,7 +13,7 @@ type BrandLogoProps = {
   wordmarkClassName?: string;
 };
 
-export function BrandLogo({
+export const BrandLogo = memo(function BrandLogo({
   size = 36,
   showWordmark = true,
   href,
@@ -58,4 +59,4 @@ export function BrandLogo({
   }
 
   return <div className={classes}>{content}</div>;
-}
+});

@@ -1,5 +1,5 @@
-import Link from "next/link";
 import { BrandLogo } from "@/components/brand/brand-logo";
+import { SiteFooter } from "@/components/layout/site-footer";
 import { LandingHeader } from "@/features/landing/components/landing-header";
 import type { LandingUser } from "@/features/landing/types";
 
@@ -23,19 +23,7 @@ export function PublicPageShell({ user, children }: PublicPageShellProps) {
         }
       />
       {children}
-      <footer className="border-t border-border">
-        <div className="mx-auto flex max-w-6xl flex-col gap-2 px-4 py-8 sm:flex-row sm:items-center sm:justify-between sm:px-6">
-          <p className="text-base text-muted-foreground">
-            Argus — SOC analyst assistant
-          </p>
-          <Link
-            href="/"
-            className="text-base text-muted-foreground transition-colors hover:text-foreground"
-          >
-            Back to home
-          </Link>
-        </div>
-      </footer>
+      <SiteFooter />
     </div>
   );
 }

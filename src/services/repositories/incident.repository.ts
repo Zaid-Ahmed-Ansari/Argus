@@ -10,6 +10,22 @@ export type FindIncidentsOptions = {
   offset?: number;
 };
 
+const incidentListSelect = {
+  id: true,
+  title: true,
+  attackType: true,
+  severity: true,
+  summary: true,
+  status: true,
+  createdAt: true,
+  updatedAt: true,
+} as const;
+
+export type UserIncidentStats = {
+  total: number;
+  severityCounts: Record<Severity, number>;
+};
+
 export class IncidentRepository {
   async findMany(options: FindIncidentsOptions): Promise<IncidentSummary[]> {
     const { userId, severity, limit = 20, offset = 0 } = options;
@@ -22,6 +38,7 @@ export class IncidentRepository {
       orderBy: { createdAt: "desc" },
       take: limit,
       skip: offset,
+      select: incidentListSelect,
     });
 
     return incidents.map(mapIncident);
@@ -77,24 +94,33 @@ export class IncidentRepository {
   }
 
   async countBySeverity(userId: string): Promise<Record<Severity, number>> {
+    const { severityCounts } = await this.getUserStats(userId);
+    return severityCounts;
+  }
+
+  /** Single round-trip for dashboard stat cards (replaces separate count + groupBy). */
+  async getUserStats(userId: string): Promise<UserIncidentStats> {
     const groups = await prisma.incident.groupBy({
       by: ["severity"],
       where: { userId },
       _count: { severity: true },
     });
 
-    const result: Record<Severity, number> = {
+    const severityCounts: Record<Severity, number> = {
       LOW: 0,
       MEDIUM: 0,
       HIGH: 0,
       CRITICAL: 0,
     };
 
+    let total = 0;
     for (const group of groups) {
-      result[group.severity] = group._count.severity;
+      const count = group._count.severity;
+      severityCounts[group.severity] = count;
+      total += count;
     }
 
-    return result;
+    return { total, severityCounts };
   }
 }
 

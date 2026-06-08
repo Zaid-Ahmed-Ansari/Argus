@@ -61,23 +61,34 @@ export class AnalysisRepository {
   async findRecentForUser(
     userId: string,
     limit = 10,
+    options?: { includeDetails?: boolean },
   ): Promise<AnalysisSummary[]> {
+    const includeDetails = options?.includeDetails ?? false;
+
     const analyses = await prisma.analysis.findMany({
       where: { incident: { userId } },
       orderBy: { createdAt: "desc" },
       take: limit,
-      select: {
-        id: true,
-        provider: true,
-        usedRag: true,
-        inputFormat: true,
-        attackType: true,
-        severity: true,
-        summary: true,
-        timeline: true,
-        recommendations: true,
-        createdAt: true,
-      },
+      select: includeDetails
+        ? {
+            id: true,
+            provider: true,
+            usedRag: true,
+            inputFormat: true,
+            attackType: true,
+            severity: true,
+            summary: true,
+            timeline: true,
+            recommendations: true,
+            createdAt: true,
+          }
+        : {
+            id: true,
+            provider: true,
+            severity: true,
+            summary: true,
+            createdAt: true,
+          },
     });
 
     return analyses.map((row) =>

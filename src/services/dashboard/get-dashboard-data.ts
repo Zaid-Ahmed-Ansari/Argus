@@ -1,3 +1,8 @@
+import { unstable_cache } from "next/cache";
+import {
+  INCIDENTS_CACHE_SECONDS,
+  incidentsCacheTag,
+} from "@/lib/incident-cache";
 import { analysisRepository } from "@/services/repositories/analysis.repository";
 import { incidentRepository } from "@/services/repositories/incident.repository";
 import type { AnalysisSummary, IncidentSummary } from "@/types/incident";
@@ -15,22 +20,32 @@ export type DashboardData = {
 
 const DEFAULT_LIMIT = 20;
 
-export async function getDashboardData(userId: string): Promise<DashboardData> {
-  const [incidents, total, severityCounts, recentAnalyses] = await Promise.all([
+async function fetchDashboardData(userId: string): Promise<DashboardData> {
+  const [incidents, stats, recentAnalyses] = await Promise.all([
     incidentRepository.findMany({ userId, limit: DEFAULT_LIMIT, offset: 0 }),
-    incidentRepository.count({ userId }),
-    incidentRepository.countBySeverity(userId),
+    incidentRepository.getUserStats(userId),
     analysisRepository.findRecentForUser(userId, 5),
   ]);
 
   return {
     incidents,
     meta: {
-      total,
+      total: stats.total,
       limit: DEFAULT_LIMIT,
       offset: 0,
-      severityCounts,
+      severityCounts: stats.severityCounts,
     },
     recentAnalyses,
   };
+}
+
+export async function getDashboardData(userId: string): Promise<DashboardData> {
+  return unstable_cache(
+    () => fetchDashboardData(userId),
+    ["dashboard", userId],
+    {
+      revalidate: INCIDENTS_CACHE_SECONDS,
+      tags: [incidentsCacheTag(userId)],
+    },
+  )();
 }

@@ -1,13 +1,14 @@
 import { PublicPageShell } from "@/components/layout/public-page-shell";
 import { ResearchShell } from "@/features/research/layout/research-shell";
 import { getSession } from "@/lib/auth-session";
+import { createPageMetadata } from "@/lib/site-metadata";
 import type { LandingUser } from "@/features/landing/types";
 
-export const metadata = {
-  title: "Research Lab — Argus",
-  description:
-    "Interactive AI research laboratory for SOC log triage evaluation.",
-};
+export const metadata = createPageMetadata(
+  "Research Lab",
+  "Interactive AI research laboratory for SOC log triage evaluation, experiment comparison, and reproducible cybersecurity benchmarks.",
+  "/research",
+);
 
 export default async function ResearchLayout({
   children,

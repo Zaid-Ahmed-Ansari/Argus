@@ -26,7 +26,7 @@ export function IncidentPaginationNav({
       params.set("offset", String(nextOffset));
     }
     const query = params.toString();
-    router.push(query ? `${pathname}?${query}` : pathname);
+    router.replace(query ? `${pathname}?${query}` : pathname, { scroll: false });
   };
 
   return (
