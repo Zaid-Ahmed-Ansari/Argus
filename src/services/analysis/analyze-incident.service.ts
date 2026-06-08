@@ -12,6 +12,7 @@ import {
 } from "@/services/storage/log-file-storage.service";
 import type { AnalyzeResponse } from "@/types/api";
 import { countLogLines } from "@/utils/format";
+import { prepareLogContent } from "@/utils/redact-pii";
 
 function toSeverity(value: string): Severity {
   const upper = value.toUpperCase();
@@ -72,7 +73,7 @@ async function resolveLogContent(
     };
   }
 
-  const content = input.logs!.trim();
+  const content = prepareLogContent(input.logs!);
   return {
     content,
     filename: "pasted-logs.txt",

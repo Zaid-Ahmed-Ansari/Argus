@@ -7,6 +7,7 @@ import {
   toRelativeStoragePath,
 } from "@/lib/storage-paths";
 import { countLogLines } from "@/utils/format";
+import { prepareLogContent } from "@/utils/redact-pii";
 
 const ALLOWED_EXTENSIONS = new Set([".log", ".txt", ".csv"]);
 const ALLOWED_MIME = new Set([
@@ -59,21 +60,21 @@ export async function saveStagingUpload(input: {
   );
   const absolutePath = resolveStoragePath(relativePath);
 
-  await mkdir(path.dirname(absolutePath), { recursive: true });
-  await writeFile(absolutePath, input.buffer);
-
-  const content = input.buffer.toString("utf-8");
+  const content = prepareLogContent(input.buffer.toString("utf-8"));
   if (content.length > input.maxBytes) {
-    await rm(absolutePath, { force: true });
     throw new Error("File content exceeds maximum allowed size");
   }
+
+  const redactedBuffer = Buffer.from(content, "utf-8");
+  await mkdir(path.dirname(absolutePath), { recursive: true });
+  await writeFile(absolutePath, redactedBuffer);
 
   return {
     relativePath: toRelativeStoragePath(absolutePath),
     absolutePath,
     originalFilename: input.filename,
     mimeType: input.mimeType,
-    sizeBytes: input.buffer.length,
+    sizeBytes: redactedBuffer.length,
     lineCount: countLogLines(content),
     content,
   };
@@ -89,11 +90,13 @@ export async function readStoredLog(storageRef: string): Promise<string> {
     if (!response.ok) {
       throw new Error("Failed to fetch log from external storage");
     }
-    return response.text();
+    const raw = await response.text();
+    return prepareLogContent(raw);
   }
 
   const absolutePath = resolveStoragePath(storageRef);
-  return readFile(absolutePath, "utf-8");
+  const raw = await readFile(absolutePath, "utf-8");
+  return prepareLogContent(raw);
 }
 
 export async function promoteToIncidentStorage(input: {
@@ -137,7 +140,8 @@ export async function savePastedLog(input: {
   );
   const absolutePath = resolveStoragePath(relativePath);
   await mkdir(path.dirname(absolutePath), { recursive: true });
-  const buffer = Buffer.from(input.content, "utf-8");
+  const content = prepareLogContent(input.content);
+  const buffer = Buffer.from(content, "utf-8");
   await writeFile(absolutePath, buffer);
 
   return {

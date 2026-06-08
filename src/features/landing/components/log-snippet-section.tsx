@@ -15,6 +15,7 @@ export function LogSnippetSection() {
           <ul className="mt-8 space-y-2 text-lg text-muted-foreground">
             <li>1 MB upload limit with validation</li>
             <li>Search across stored log content</li>
+            <li>PII redacted before storage and AI analysis</li>
             <li>Log data treated as untrusted in prompts</li>
           </ul>
         </div>

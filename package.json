@@ -1,7 +1,17 @@
 {
   "name": "argus",
   "version": "0.1.0",
+  "description": "AI-powered SOC analyst assistant and cybersecurity research platform with hybrid RAG, investigation workspace, and reproducible experiment baselines.",
+  "license": "MIT",
   "private": true,
+  "contributors": [
+    {
+      "name": "Zaid Ahmed Ansari",
+      "url": "https://github.com/Zaid-Ahmed-Ansari",
+      "img": "https://github.com/Zaid-Ahmed-Ansari.png",
+      "info": ["Author & maintainer"]
+    }
+  ],
   "scripts": {
     "dev": "next dev",
     "build": "prisma generate && next build",

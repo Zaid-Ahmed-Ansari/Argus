@@ -23,7 +23,8 @@ We aim to acknowledge reports within **72 hours** and provide a fix or mitigatio
 - **Secrets** — API keys and database credentials belong in environment variables only (`.env`, never committed)
 - **Authentication** — Better Auth with HTTP-only session cookies; protected routes enforced in `src/proxy.ts`
 - **Uploads** — UploadThing in production (no local disk on Vercel); file type and size limits on upload routes
-- **AI payloads** — Log content is sent to Google Gemini for analysis; do not upload real PII/production logs to public deployments without redaction
+- **PII redaction** — Emails, IPs, auth usernames, tokens, and common identifiers are masked via `prepareLogContent()` before logs are stored or sent to AI (best-effort, not a legal anonymization guarantee)
+- **AI payloads** — Redacted log content is sent to Google Gemini for analysis; still avoid uploading real production logs to public deployments
 - **Dependencies** — Run `npm audit` periodically; CI runs on pushes to `main`
 
 ## Scope

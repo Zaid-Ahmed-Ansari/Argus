@@ -1,10 +1,13 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Providers } from "@/app/providers";
-import { getLogoUrl } from "@/lib/brand";
 import "./globals.css";
 
-const logoUrl = getLogoUrl();
+const appUrl =
+  process.env.NEXT_PUBLIC_APP_URL ??
+  (process.env.VERCEL_URL
+    ? `https://${process.env.VERCEL_URL}`
+    : "http://localhost:3000");
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -17,13 +20,11 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(appUrl),
   title: "Argus — SOC Analyst Assistant",
   description:
     "Argus is an AI-powered Security Operations Center analyst assistant for incident analysis and research.",
-  icons: {
-    icon: logoUrl,
-    apple: logoUrl,
-  },
+  // Favicon: src/app/icon.png and src/app/apple-icon.png (Next.js file metadata)
 };
 
 export default function RootLayout({
