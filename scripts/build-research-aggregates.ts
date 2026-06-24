@@ -68,6 +68,9 @@ async function build() {
   ]);
 
   const evaluation = JSON.parse(evalRaw) as Record<string, RawRun>;
+  for (const run of Object.values(evaluation)) {
+    delete run.responses;
+  }
   const leaderboard = parseCsv(csvRaw).map((row) => ({
     model: row.Model!,
     dataset: row.Model!.includes("Raw")

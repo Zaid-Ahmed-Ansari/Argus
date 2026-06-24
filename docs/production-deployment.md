@@ -398,7 +398,7 @@ DATABASE_URL="neon-url" GEMINI_API_KEY="..." npm run db:embed
 ### Backups
 
 - Neon: enable automatic backups (paid tiers) or periodic `pg_dump`
-- Export experiment results and reports from `/research/reports` periodically
+- Export experiment results from `/research/results` periodically
 
 ---
 

@@ -122,12 +122,6 @@ export type EnrichedQuestion = {
   methodology: string;
 };
 
-export type ReportSection = {
-  id: string;
-  title: string;
-  summary: string;
-};
-
 export type ArgusResearchOverviewData = {
   overview: ResearchOverview;
   classDistribution: { category: string; count: number }[];
@@ -168,10 +162,6 @@ export type ArgusQuestionsData = {
   questions: EnrichedQuestion[];
   answeredCount: number;
   inProgressCount: number;
-};
-
-export type ArgusReportsData = {
-  sections: ReportSection[];
 };
 
 export type ResearchAggregates = {

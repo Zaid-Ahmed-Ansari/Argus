@@ -22,6 +22,7 @@
 
 # editor / local tooling
 .cursor/
+/notes/
 
 # misc
 .DS_Store

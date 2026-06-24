@@ -4,7 +4,6 @@ import {
   EXPERIMENT_FAMILIES,
   EXPERIMENT_PROGRESSION,
   PROGRESS_STEPS,
-  REPORT_SECTIONS,
   TELEMETRY_SOURCE_LABELS,
   VARIANT_LABELS,
 } from "@/lib/argus-research/catalog";
@@ -17,7 +16,6 @@ import type {
   ArgusDatasetExplorerData,
   ArgusExperimentsData,
   ArgusQuestionsData,
-  ArgusReportsData,
   ArgusResearchOverviewData,
   ArgusResultsLabData,
   TelemetrySource,
@@ -146,19 +144,14 @@ export const getArgusQuestions = cache(async (): Promise<ArgusQuestionsData> => 
   };
 });
 
-export const getArgusReports = cache(async (): Promise<ArgusReportsData> => {
-  return { sections: REPORT_SECTIONS };
-});
-
 export const getArgusResearchSnapshot = cache(async () => {
-  const [overview, dataset, results, experiments, questions, reports] =
+  const [overview, dataset, results, experiments, questions] =
     await Promise.all([
       getArgusResearchOverview(),
       getArgusDatasetExplorer(),
       getArgusResultsLab(),
       getArgusExperiments(),
       getArgusQuestions(),
-      getArgusReports(),
     ]);
-  return { overview, dataset, results, experiments, questions, reports };
+  return { overview, dataset, results, experiments, questions };
 });

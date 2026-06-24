@@ -94,7 +94,7 @@ Argus is both a **production-style analyst tool** (auth, persistent incidents, u
 - **10 labeled scenarios** — Brute force through insider threat, each with `sample.log` + `ground-truth.json`.
 - **4 active experiments** — RAG vs no-RAG, raw vs structured input, cross-scenario benchmark, 2×2 factorial matrix.
 - **10 metrics** — Accuracy, attack-type/severity/MITRE accuracy, investigation quality, recommendation quality, hallucination rate, latency, and more.
-- **Public research UI** — `/research` (overview), `/research/questions`, `/research/results`, `/research/datasets`, `/research/experiments`, `/research/reports`.
+- **Public research UI** — `/research` (overview), `/research/datasets`, `/research/experiments`, `/research/results`, `/research/questions`, `/research/legacy`.
 
 ---
 
@@ -254,7 +254,7 @@ Implementation: [`src/services/eval/metrics.ts`](src/services/eval/metrics.ts)
 
 ### Paper outline (research artifact)
 
-The `/research/reports` section follows a standard academic structure: Abstract, Introduction, Related Work, Methodology, Experimental Design, Results, Discussion, Limitations, Future Work — see [`src/lib/research-catalog.ts`](src/lib/research-catalog.ts) (`PAPER_SECTIONS`).
+The public research lab documents ARGUS-1000 evaluation (leaderboard, confusion matrices, RQ1–RQ8) at `/research`. See [`docs/RESEARCH_PAGE.md`](docs/RESEARCH_PAGE.md).
 
 ### Baseline results on production
 

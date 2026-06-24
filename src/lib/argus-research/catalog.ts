@@ -2,7 +2,6 @@ import type {
   ArgusAttackCategory,
   ArgusDatasetVariant,
   ExperimentFamily,
-  ReportSection,
 } from "@/lib/argus-research/types";
 
 export const RESEARCH_POSITIONING =
@@ -240,74 +239,6 @@ export const EXPERIMENT_FAMILIES: ExperimentFamily[] = [
         findings: "",
       },
     ],
-  },
-];
-
-export const REPORT_SECTIONS: ReportSection[] = [
-  {
-    id: "abstract",
-    title: "Abstract",
-    summary: "ARGUS-1000: LLM, RAG, and LoRA for SOC incident classification.",
-  },
-  {
-    id: "introduction",
-    title: "Introduction",
-    summary: "SOC analyst overload and the case for AI-assisted triage.",
-  },
-  {
-    id: "problem",
-    title: "Problem Statement",
-    summary: "Automated multi-class incident classification from security telemetry.",
-  },
-  {
-    id: "dataset",
-    title: "Dataset Construction",
-    summary: "1000 synthetic incidents, 10 classes, 3 representations, stratified splits.",
-  },
-  {
-    id: "methodology",
-    title: "Methodology",
-    summary: "Data pipeline, RAG injection, LoRA fine-tuning, evaluation protocol.",
-  },
-  {
-    id: "setup",
-    title: "Experimental Setup",
-    summary: "Qwen3-4B base, 6 model×dataset configurations, 50-sample test set.",
-  },
-  {
-    id: "architecture",
-    title: "Model Architecture",
-    summary: `${BASE_MODEL} with ${LORA_CONFIG}.`,
-  },
-  {
-    id: "metrics",
-    title: "Evaluation Metrics",
-    summary: "Accuracy, Precision, Recall, F1, confusion matrix, per-class accuracy.",
-  },
-  {
-    id: "results",
-    title: "Results",
-    summary: "Leaderboard and per-class analysis from evaluation runs.",
-  },
-  {
-    id: "discussion",
-    title: "Discussion",
-    summary: "When RAG and LoRA help; implications for SOC automation.",
-  },
-  {
-    id: "limitations",
-    title: "Limitations",
-    summary: "Synthetic data, 50-sample test set, parse failures on raw input.",
-  },
-  {
-    id: "future",
-    title: "Future Work",
-    summary: "Real SIEM data, larger models, multi-label MITRE mapping.",
-  },
-  {
-    id: "references",
-    title: "References",
-    summary: "MITRE ATT&CK, LoRA, RAG, Qwen3, SOC automation literature.",
   },
 ];
 
