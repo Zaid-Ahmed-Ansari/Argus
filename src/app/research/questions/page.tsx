@@ -1,44 +1,44 @@
-import { QuestionCard } from "@/features/research/components/question-card";
+import { ArgusQuestionCard } from "@/features/research/components/argus-question-card";
 import { ResearchPageHeader } from "@/features/research/components/research-page-header";
-import { getResearchSnapshot } from "@/lib/research-snapshot";
+import { getArgusQuestions } from "@/lib/argus-research/snapshot";
+
+export const revalidate = 86400;
 
 export default async function ResearchQuestionsPage() {
-  const snapshot = await getResearchSnapshot();
-  const answered = snapshot.questions.filter((q) => q.status === "answered").length;
-  const inProgress = snapshot.questions.filter(
-    (q) => q.status === "in_progress",
-  ).length;
+  const data = await getArgusQuestions();
+  const openCount =
+    data.questions.length - data.answeredCount - data.inProgressCount;
 
   return (
     <>
       <ResearchPageHeader
         title="Research questions"
-        description="Fifteen hypotheses with empirical findings when runs exist, or documented research positions when awaiting batch evaluation."
+        description="Eight primary hypotheses (RQ1–RQ8) with findings computed from the six Qwen3-4B evaluation runs."
       />
       <div className="px-6 py-8 lg:px-10">
         <div className="mb-8 flex flex-wrap gap-6 text-sm">
           <div>
             <span className="font-mono text-2xl font-semibold text-success">
-              {answered}
+              {data.answeredCount}
             </span>
             <span className="ml-2 text-muted-foreground">answered</span>
           </div>
           <div>
             <span className="font-mono text-2xl font-semibold text-warning">
-              {inProgress}
+              {data.inProgressCount}
             </span>
             <span className="ml-2 text-muted-foreground">in progress</span>
           </div>
           <div>
             <span className="font-mono text-2xl font-semibold text-muted-foreground">
-              {snapshot.questions.length - answered - inProgress}
+              {openCount}
             </span>
-            <span className="ml-2 text-muted-foreground">awaiting runs</span>
+            <span className="ml-2 text-muted-foreground">open</span>
           </div>
         </div>
         <div className="surface-card px-2">
-          {snapshot.questions.map((q) => (
-            <QuestionCard key={q.id} question={q} />
+          {data.questions.map((q) => (
+            <ArgusQuestionCard key={q.id} question={q} />
           ))}
         </div>
       </div>

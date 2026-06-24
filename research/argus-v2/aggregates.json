@@ -1,0 +1,1177 @@
+{
+  "version": 2,
+  "generatedAt": "2026-06-24T09:00:39.430Z",
+  "overview": {
+    "totalIncidents": 1000,
+    "attackCategories": 10,
+    "trainSamples": 800,
+    "validationSamples": 100,
+    "testSamples": 100,
+    "modelsEvaluated": 6,
+    "bestAccuracy": 1,
+    "bestMacroF1": 1,
+    "bestExperiment": "Base RAG"
+  },
+  "leaderboard": [
+    {
+      "model": "Base Raw",
+      "dataset": "raw",
+      "accuracy": 0.74,
+      "precision": 0.9,
+      "recall": 0.74,
+      "f1": 0.796
+    },
+    {
+      "model": "Base Condensed",
+      "dataset": "condensed",
+      "accuracy": 0.8,
+      "precision": 0.7667,
+      "recall": 0.8,
+      "f1": 0.7737
+    },
+    {
+      "model": "Base RAG",
+      "dataset": "rag",
+      "accuracy": 1,
+      "precision": 1,
+      "recall": 1,
+      "f1": 1
+    },
+    {
+      "model": "LoRA Raw",
+      "dataset": "raw",
+      "accuracy": 0.74,
+      "precision": 0.86,
+      "recall": 0.74,
+      "f1": 0.7683
+    },
+    {
+      "model": "LoRA Condensed",
+      "dataset": "condensed",
+      "accuracy": 1,
+      "precision": 1,
+      "recall": 1,
+      "f1": 1
+    },
+    {
+      "model": "LoRA RAG",
+      "dataset": "rag",
+      "accuracy": 1,
+      "precision": 1,
+      "recall": 1,
+      "f1": 1
+    }
+  ],
+  "runs": [
+    {
+      "id": "base-raw",
+      "label": "Base Raw",
+      "modelType": "base",
+      "datasetVariant": "raw",
+      "metrics": {
+        "accuracy": 0.74,
+        "precision": 0.9,
+        "recall": 0.74,
+        "f1": 0.796,
+        "perClassAccuracy": {
+          "Benign Activity": 0.6,
+          "Brute Force": 0.6,
+          "Password Spray": 1,
+          "Credential Stuffing": 0,
+          "Reconnaissance": 0.4,
+          "Privilege Escalation": 1,
+          "Defense Evasion": 1,
+          "Malware Execution": 1,
+          "Data Exfiltration": 1,
+          "Insider Threat": 0.8
+        },
+        "parseFailureRate": 0.26
+      },
+      "confusionMatrix": {
+        "labels": [
+          "Benign Activity",
+          "Brute Force",
+          "Password Spray",
+          "Credential Stuffing",
+          "Reconnaissance",
+          "Privilege Escalation",
+          "Defense Evasion",
+          "Malware Execution",
+          "Data Exfiltration",
+          "Insider Threat"
+        ],
+        "matrix": [
+          [
+            3,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            3,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            5,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            2,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            5,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            5,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            5,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            5,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            4
+          ]
+        ]
+      }
+    },
+    {
+      "id": "base-condensed",
+      "label": "Base Condensed",
+      "modelType": "base",
+      "datasetVariant": "condensed",
+      "metrics": {
+        "accuracy": 0.8,
+        "precision": 0.7667,
+        "recall": 0.8,
+        "f1": 0.7737,
+        "perClassAccuracy": {
+          "Benign Activity": 1,
+          "Brute Force": 1,
+          "Password Spray": 1,
+          "Credential Stuffing": 1,
+          "Reconnaissance": 0.2,
+          "Privilege Escalation": 1,
+          "Defense Evasion": 0.8,
+          "Malware Execution": 1,
+          "Data Exfiltration": 1,
+          "Insider Threat": 0
+        },
+        "parseFailureRate": 0
+      },
+      "confusionMatrix": {
+        "labels": [
+          "Benign Activity",
+          "Brute Force",
+          "Password Spray",
+          "Credential Stuffing",
+          "Reconnaissance",
+          "Privilege Escalation",
+          "Defense Evasion",
+          "Malware Execution",
+          "Data Exfiltration",
+          "Insider Threat"
+        ],
+        "matrix": [
+          [
+            5,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            5,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            5,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            5,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            4,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            5,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            4,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            5,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            5,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            5,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "base-rag",
+      "label": "Base RAG",
+      "modelType": "base",
+      "datasetVariant": "rag",
+      "metrics": {
+        "accuracy": 1,
+        "precision": 1,
+        "recall": 1,
+        "f1": 1,
+        "perClassAccuracy": {
+          "Benign Activity": 1,
+          "Brute Force": 1,
+          "Password Spray": 1,
+          "Credential Stuffing": 1,
+          "Reconnaissance": 1,
+          "Privilege Escalation": 1,
+          "Defense Evasion": 1,
+          "Malware Execution": 1,
+          "Data Exfiltration": 1,
+          "Insider Threat": 1
+        },
+        "parseFailureRate": 0
+      },
+      "confusionMatrix": {
+        "labels": [
+          "Benign Activity",
+          "Brute Force",
+          "Password Spray",
+          "Credential Stuffing",
+          "Reconnaissance",
+          "Privilege Escalation",
+          "Defense Evasion",
+          "Malware Execution",
+          "Data Exfiltration",
+          "Insider Threat"
+        ],
+        "matrix": [
+          [
+            5,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            5,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            5,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            5,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            5,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            5,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            5,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            5,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            5,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            5
+          ]
+        ]
+      }
+    },
+    {
+      "id": "lora-raw",
+      "label": "LoRA Raw",
+      "modelType": "lora",
+      "datasetVariant": "raw",
+      "metrics": {
+        "accuracy": 0.74,
+        "precision": 0.86,
+        "recall": 0.74,
+        "f1": 0.7683,
+        "perClassAccuracy": {
+          "Benign Activity": 0.6,
+          "Brute Force": 1,
+          "Password Spray": 1,
+          "Credential Stuffing": 0,
+          "Reconnaissance": 0.2,
+          "Privilege Escalation": 1,
+          "Defense Evasion": 1,
+          "Malware Execution": 1,
+          "Data Exfiltration": 1,
+          "Insider Threat": 0.6
+        },
+        "parseFailureRate": 0.22
+      },
+      "confusionMatrix": {
+        "labels": [
+          "Benign Activity",
+          "Brute Force",
+          "Password Spray",
+          "Credential Stuffing",
+          "Reconnaissance",
+          "Privilege Escalation",
+          "Defense Evasion",
+          "Malware Execution",
+          "Data Exfiltration",
+          "Insider Threat"
+        ],
+        "matrix": [
+          [
+            3,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            5,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            5,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            2,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            5,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            5,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            5,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            5,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            3
+          ]
+        ]
+      }
+    },
+    {
+      "id": "lora-condensed",
+      "label": "LoRA Condensed",
+      "modelType": "lora",
+      "datasetVariant": "condensed",
+      "metrics": {
+        "accuracy": 1,
+        "precision": 1,
+        "recall": 1,
+        "f1": 1,
+        "perClassAccuracy": {
+          "Benign Activity": 1,
+          "Brute Force": 1,
+          "Password Spray": 1,
+          "Credential Stuffing": 1,
+          "Reconnaissance": 1,
+          "Privilege Escalation": 1,
+          "Defense Evasion": 1,
+          "Malware Execution": 1,
+          "Data Exfiltration": 1,
+          "Insider Threat": 1
+        },
+        "parseFailureRate": 0
+      },
+      "confusionMatrix": {
+        "labels": [
+          "Benign Activity",
+          "Brute Force",
+          "Password Spray",
+          "Credential Stuffing",
+          "Reconnaissance",
+          "Privilege Escalation",
+          "Defense Evasion",
+          "Malware Execution",
+          "Data Exfiltration",
+          "Insider Threat"
+        ],
+        "matrix": [
+          [
+            5,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            5,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            5,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            5,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            5,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            5,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            5,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            5,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            5,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            5
+          ]
+        ]
+      }
+    },
+    {
+      "id": "lora-rag",
+      "label": "LoRA RAG",
+      "modelType": "lora",
+      "datasetVariant": "rag",
+      "metrics": {
+        "accuracy": 1,
+        "precision": 1,
+        "recall": 1,
+        "f1": 1,
+        "perClassAccuracy": {
+          "Benign Activity": 1,
+          "Brute Force": 1,
+          "Password Spray": 1,
+          "Credential Stuffing": 1,
+          "Reconnaissance": 1,
+          "Privilege Escalation": 1,
+          "Defense Evasion": 1,
+          "Malware Execution": 1,
+          "Data Exfiltration": 1,
+          "Insider Threat": 1
+        },
+        "parseFailureRate": 0
+      },
+      "confusionMatrix": {
+        "labels": [
+          "Benign Activity",
+          "Brute Force",
+          "Password Spray",
+          "Credential Stuffing",
+          "Reconnaissance",
+          "Privilege Escalation",
+          "Defense Evasion",
+          "Malware Execution",
+          "Data Exfiltration",
+          "Insider Threat"
+        ],
+        "matrix": [
+          [
+            5,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            5,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            5,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            5,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            5,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            5,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            5,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            5,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            5,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            5
+          ]
+        ]
+      }
+    }
+  ],
+  "datasetStatistics": {
+    "seed": 42,
+    "datasets": {
+      "raw": {
+        "dataset": "raw",
+        "record_count": 1000,
+        "class_distribution": {
+          "Benign Activity": 100,
+          "Brute Force": 100,
+          "Credential Stuffing": 100,
+          "Data Exfiltration": 100,
+          "Defense Evasion": 100,
+          "Insider Threat": 100,
+          "Malware Execution": 100,
+          "Password Spray": 100,
+          "Privilege Escalation": 100,
+          "Reconnaissance": 100
+        },
+        "split_distribution": {
+          "test": 100,
+          "train": 800,
+          "validation": 100
+        },
+        "token_stats": {
+          "average": 963.7,
+          "min": 615,
+          "max": 1307
+        },
+        "source_distribution": {
+          "ssh": 843,
+          "sysmon": 804,
+          "firewall": 749,
+          "vpn": 718,
+          "apache": 716,
+          "windows_event": 389,
+          "suricata": 300,
+          "cloudtrail": 189,
+          "m365": 132,
+          "azure_ad": 100,
+          "nginx": 100,
+          "dlp": 100,
+          "casb": 100,
+          "hr_feed": 100
+        }
+      },
+      "condensed": {
+        "dataset": "condensed",
+        "record_count": 1000,
+        "class_distribution": {
+          "Benign Activity": 100,
+          "Brute Force": 100,
+          "Credential Stuffing": 100,
+          "Data Exfiltration": 100,
+          "Defense Evasion": 100,
+          "Insider Threat": 100,
+          "Malware Execution": 100,
+          "Password Spray": 100,
+          "Privilege Escalation": 100,
+          "Reconnaissance": 100
+        },
+        "split_distribution": {
+          "test": 100,
+          "train": 800,
+          "validation": 100
+        },
+        "token_stats": {
+          "average": 95.8,
+          "min": 88,
+          "max": 107
+        },
+        "source_distribution": {
+          "ssh": 843,
+          "sysmon": 804,
+          "firewall": 749,
+          "vpn": 718,
+          "apache": 716,
+          "windows_event": 389,
+          "suricata": 300,
+          "cloudtrail": 189,
+          "m365": 132,
+          "azure_ad": 100,
+          "nginx": 100,
+          "dlp": 100,
+          "casb": 100,
+          "hr_feed": 100
+        }
+      },
+      "rag": {
+        "dataset": "rag",
+        "record_count": 1000,
+        "class_distribution": {
+          "Benign Activity": 100,
+          "Brute Force": 100,
+          "Credential Stuffing": 100,
+          "Data Exfiltration": 100,
+          "Defense Evasion": 100,
+          "Insider Threat": 100,
+          "Malware Execution": 100,
+          "Password Spray": 100,
+          "Privilege Escalation": 100,
+          "Reconnaissance": 100
+        },
+        "split_distribution": {
+          "test": 100,
+          "train": 800,
+          "validation": 100
+        },
+        "token_stats": {
+          "average": 135.7,
+          "min": 127,
+          "max": 146
+        },
+        "source_distribution": {
+          "ssh": 843,
+          "sysmon": 804,
+          "firewall": 749,
+          "vpn": 718,
+          "apache": 716,
+          "windows_event": 389,
+          "suricata": 300,
+          "cloudtrail": 189,
+          "m365": 132,
+          "azure_ad": 100,
+          "nginx": 100,
+          "dlp": 100,
+          "casb": 100,
+          "hr_feed": 100
+        }
+      }
+    },
+    "condensed_reduction_pct": 90.1
+  },
+  "classLabels": [
+    "Benign Activity",
+    "Brute Force",
+    "Password Spray",
+    "Credential Stuffing",
+    "Reconnaissance",
+    "Privilege Escalation",
+    "Defense Evasion",
+    "Malware Execution",
+    "Data Exfiltration",
+    "Insider Threat"
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "category": "Brute Force",
+  "variant": "rag",
+  "scenarioId": "ARGUS-0101",
+  "sources": [
+    "apache",
+    "firewall",
+    "ssh",
+    "suricata",
+    "vpn"
+  ],
+  "sourceCount": 5,
+  "userContentPreview": "=== INCIDENT ===\n\nBrute Force\nSource IP: 125.213.138.165\n00:00\nExternal IP 125.213.138.165\nSSH brute force against app-36.acme.com\n14 failed attempts\n~1 min window\nFailed logins: 14\nTarget host: app-36.acme.com\nAlert: Suricata ET SCAN SSH BruteForce\nSource IP: 125.213.138.165\nMITRE: T1110\n\n=== RETRIEVED CONTEXT ===\n\nMITRE:\nT1110\nBrute Force\n\nDefinition:\nMany password guesses against one account or service.\n\nIndicators:\nHigh failure rate from one IP; SSH/RDP lockouts; IDS brute-force hits.\n\nRecommendation:\nBlock source IP; reset targeted account; enable MFA.\n\n=== END ===",
+  "label": "{\"attack_type\":\"Brute Force\"}"
+}

@@ -1,0 +1,17 @@
+{
+  "category": "Benign Activity",
+  "variant": "condensed",
+  "scenarioId": "ARGUS-0001",
+  "sources": [
+    "apache",
+    "cloudtrail",
+    "m365",
+    "ssh",
+    "sysmon",
+    "vpn",
+    "windows_event"
+  ],
+  "sourceCount": 7,
+  "userContentPreview": "=== INCIDENT ARGUS-0001 | Analyst Condensed View ===\n\nAttack timeline:\n\n09:00\nUser mike.smith\nCorporate IP 192.168.107.83\nRoutine VPN and M365 logons\nNo burst authentication failures\n\nIndicators:\n\nFailed logins: 0 (attack-related)\nSuccessful sessions: 0\nPrimary host: app-32.acme.com\nAlert: none\n\nSuspicious Assets:\n- 202.110.18.103\n- app-32.acme.com\n\nNoise:\n\n6 unrelated vpn requests",
+  "label": "{\"attack_type\":\"Benign Activity\"}"
+}

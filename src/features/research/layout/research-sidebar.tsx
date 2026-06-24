@@ -3,13 +3,12 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
-  BookOpen,
   Database,
   FlaskConical,
   LayoutDashboard,
   LineChart,
   HelpCircle,
-  FileText,
+  Archive,
 } from "lucide-react";
 import { BrandLogo } from "@/components/brand/brand-logo";
 import { cn } from "@/lib/utils";
@@ -20,7 +19,6 @@ const NAV = [
   { href: "/research/experiments", label: "Experiments", icon: FlaskConical },
   { href: "/research/results", label: "Results", icon: LineChart },
   { href: "/research/questions", label: "Questions", icon: HelpCircle },
-  { href: "/research/reports", label: "Reports", icon: FileText },
 ] as const;
 
 export function ResearchSidebar() {
@@ -32,7 +30,7 @@ export function ResearchSidebar() {
         <div className="mb-8 px-2">
           <BrandLogo href="/" size={32} wordmarkClassName="text-sm" />
           <p className="mt-3 text-[11px] font-medium uppercase tracking-[0.12em] text-muted-foreground">
-            AI Security Research
+            SOC Classification Research
           </p>
         </div>
         <nav className="flex flex-1 flex-col gap-0.5">
@@ -61,11 +59,11 @@ export function ResearchSidebar() {
         </nav>
         <div className="mt-auto border-t border-border px-2 pt-4">
           <Link
-            href="/research/reports"
+            href="/research/legacy"
             className="flex items-center gap-2 text-xs text-muted-foreground hover:text-foreground"
           >
-            <BookOpen className="size-3.5" />
-            Export report
+            <Archive className="size-3.5" />
+            Phase 1 legacy
           </Link>
         </div>
       </div>

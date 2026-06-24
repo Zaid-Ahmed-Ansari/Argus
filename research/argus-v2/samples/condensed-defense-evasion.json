@@ -1,0 +1,14 @@
+{
+  "category": "Defense Evasion",
+  "variant": "condensed",
+  "scenarioId": "ARGUS-0601",
+  "sources": [
+    "firewall",
+    "ssh",
+    "sysmon",
+    "windows_event"
+  ],
+  "sourceCount": 4,
+  "userContentPreview": "=== INCIDENT ARGUS-0601 | Analyst Condensed View ===\n\nAttack timeline:\n\n00:00\nUser lisa.miller\nEncoded PowerShell execution\nSecurity log cleared (1102)\nDefender tampering detected\n\nIndicators:\n\nEvent 1102: audit log cleared\nSysmon 13: DisableAntiSpyware set\nrsyslog service stopped\nMITRE: T1562\n\nSuspicious Assets:\n- 156.242.222.86\n- laptop-26.initech.local\n\nNoise:\n\n5 unrelated sysmon requests",
+  "label": "{\"attack_type\":\"Defense Evasion\"}"
+}

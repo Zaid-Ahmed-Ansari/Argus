@@ -1,0 +1,17 @@
+{
+  "category": "Benign Activity",
+  "variant": "rag",
+  "scenarioId": "ARGUS-0001",
+  "sources": [
+    "apache",
+    "cloudtrail",
+    "m365",
+    "ssh",
+    "sysmon",
+    "vpn",
+    "windows_event"
+  ],
+  "sourceCount": 7,
+  "userContentPreview": "=== INCIDENT ===\n\nBenign Activity\nSource IP: 202.110.18.103\n09:00\nUser mike.smith\nCorporate IP 192.168.107.83\nRoutine VPN and M365 logons\nNo burst authentication failures\nFailed logins: 0 (attack-related)\nSuccessful sessions: 0\nPrimary host: app-32.acme.com\nAlert: none\n\n=== RETRIEVED CONTEXT ===\n\nMITRE:\nT0000\nBenign Activity\n\nDefinition:\nRoutine enterprise access with no attack pattern.\n\nIndicators:\nSuccessful auth only; no burst failures or suspicious follow-on.\n\nRecommendation:\nClose as false positive after user confirmation.\n\n=== END ===",
+  "label": "{\"attack_type\":\"Benign Activity\"}"
+}

@@ -1,0 +1,132 @@
+{
+  "seed": 42,
+  "datasets": {
+    "raw": {
+      "dataset": "raw",
+      "record_count": 1000,
+      "class_distribution": {
+        "Benign Activity": 100,
+        "Brute Force": 100,
+        "Credential Stuffing": 100,
+        "Data Exfiltration": 100,
+        "Defense Evasion": 100,
+        "Insider Threat": 100,
+        "Malware Execution": 100,
+        "Password Spray": 100,
+        "Privilege Escalation": 100,
+        "Reconnaissance": 100
+      },
+      "split_distribution": {
+        "test": 100,
+        "train": 800,
+        "validation": 100
+      },
+      "token_stats": {
+        "average": 963.7,
+        "min": 615,
+        "max": 1307
+      },
+      "source_distribution": {
+        "ssh": 843,
+        "sysmon": 804,
+        "firewall": 749,
+        "vpn": 718,
+        "apache": 716,
+        "windows_event": 389,
+        "suricata": 300,
+        "cloudtrail": 189,
+        "m365": 132,
+        "azure_ad": 100,
+        "nginx": 100,
+        "dlp": 100,
+        "casb": 100,
+        "hr_feed": 100
+      }
+    },
+    "condensed": {
+      "dataset": "condensed",
+      "record_count": 1000,
+      "class_distribution": {
+        "Benign Activity": 100,
+        "Brute Force": 100,
+        "Credential Stuffing": 100,
+        "Data Exfiltration": 100,
+        "Defense Evasion": 100,
+        "Insider Threat": 100,
+        "Malware Execution": 100,
+        "Password Spray": 100,
+        "Privilege Escalation": 100,
+        "Reconnaissance": 100
+      },
+      "split_distribution": {
+        "test": 100,
+        "train": 800,
+        "validation": 100
+      },
+      "token_stats": {
+        "average": 95.8,
+        "min": 88,
+        "max": 107
+      },
+      "source_distribution": {
+        "ssh": 843,
+        "sysmon": 804,
+        "firewall": 749,
+        "vpn": 718,
+        "apache": 716,
+        "windows_event": 389,
+        "suricata": 300,
+        "cloudtrail": 189,
+        "m365": 132,
+        "azure_ad": 100,
+        "nginx": 100,
+        "dlp": 100,
+        "casb": 100,
+        "hr_feed": 100
+      }
+    },
+    "rag": {
+      "dataset": "rag",
+      "record_count": 1000,
+      "class_distribution": {
+        "Benign Activity": 100,
+        "Brute Force": 100,
+        "Credential Stuffing": 100,
+        "Data Exfiltration": 100,
+        "Defense Evasion": 100,
+        "Insider Threat": 100,
+        "Malware Execution": 100,
+        "Password Spray": 100,
+        "Privilege Escalation": 100,
+        "Reconnaissance": 100
+      },
+      "split_distribution": {
+        "test": 100,
+        "train": 800,
+        "validation": 100
+      },
+      "token_stats": {
+        "average": 135.7,
+        "min": 127,
+        "max": 146
+      },
+      "source_distribution": {
+        "ssh": 843,
+        "sysmon": 804,
+        "firewall": 749,
+        "vpn": 718,
+        "apache": 716,
+        "windows_event": 389,
+        "suricata": 300,
+        "cloudtrail": 189,
+        "m365": 132,
+        "azure_ad": 100,
+        "nginx": 100,
+        "dlp": 100,
+        "casb": 100,
+        "hr_feed": 100
+      }
+    }
+  },
+  "condensed_reduction_pct": 90.1
+}

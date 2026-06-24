@@ -1,0 +1,15 @@
+{
+  "category": "Privilege Escalation",
+  "variant": "condensed",
+  "scenarioId": "ARGUS-0501",
+  "sources": [
+    "apache",
+    "ssh",
+    "sysmon",
+    "vpn",
+    "windows_event"
+  ],
+  "sourceCount": 5,
+  "userContentPreview": "=== INCIDENT ARGUS-0501 | Analyst Condensed View ===\n\nAttack timeline:\n\n00:00\nUser emma.thomas\nHost laptop-94.acme.com\nSeDebugPrivilege assigned\nAdded to local Administrators\n\nIndicators:\n\nEvent 4672: special privileges\nEvent 4732: admin group change\nParent: exploit binary in Downloads\nMITRE: T1068\n\nSuspicious Assets:\n- 162.142.42.61\n- laptop-94.acme.com\n\nNoise:\n\n9 unrelated vpn requests",
+  "label": "{\"attack_type\":\"Privilege Escalation\"}"
+}

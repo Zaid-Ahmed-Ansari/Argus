@@ -1,6 +1,8 @@
-import { DatasetPlayground } from "@/features/research/components/dataset-playground";
+import { ArgusDatasetExplorer } from "@/features/research/components/argus-dataset-explorer";
 import { ResearchPageHeader } from "@/features/research/components/research-page-header";
-import { getResearchSnapshot } from "@/lib/research-snapshot";
+import { getArgusDatasetExplorer } from "@/lib/argus-research/snapshot";
+
+export const revalidate = 86400;
 
 type PageProps = {
   searchParams: Promise<{ id?: string }>;
@@ -8,20 +10,16 @@ type PageProps = {
 
 export default async function ResearchDatasetsPage({ searchParams }: PageProps) {
   const { id } = await searchParams;
-  const snapshot = await getResearchSnapshot();
+  const data = await getArgusDatasetExplorer();
 
   return (
     <>
       <ResearchPageHeader
         title="Dataset explorer"
-        description="Inspect labeled attack scenarios — sample logs, MITRE mapping, ground truth, and latest Gemini baseline outputs. Training pairs for open-source fine-tuning."
+        description="ARGUS-1000: 1000 synthetic SOC incidents across 10 attack categories with raw, condensed, and RAG-enhanced representations."
       />
       <div className="px-6 py-8 lg:px-10">
-        <DatasetPlayground
-          scenarios={snapshot.scenarios}
-          results={snapshot.results}
-          initialId={id}
-        />
+        <ArgusDatasetExplorer data={data} initialCategoryId={id} />
       </div>
     </>
   );

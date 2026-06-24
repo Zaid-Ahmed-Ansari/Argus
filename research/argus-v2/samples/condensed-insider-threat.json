@@ -1,0 +1,18 @@
+{
+  "category": "Insider Threat",
+  "variant": "condensed",
+  "scenarioId": "ARGUS-0901",
+  "sources": [
+    "apache",
+    "casb",
+    "cloudtrail",
+    "firewall",
+    "hr_feed",
+    "ssh",
+    "vpn",
+    "windows_event"
+  ],
+  "sourceCount": 8,
+  "userContentPreview": "=== INCIDENT ARGUS-0901 | Analyst Condensed View ===\n\nAttack timeline:\n\n00:00\nUser james.martin\nHR notice-period activity\nBulk S3 GetObject and file share access\n\nIndicators:\n\nS3 GetObject calls: 3\nSensitive finance share accessed\nCASB bulk download alert\nMITRE: T1078\n\nSuspicious Assets:\n- 67.179.117.118\n- vm-42.corp.local\n\nNoise:\n\n7 unrelated vpn requests",
+  "label": "{\"attack_type\":\"Insider Threat\"}"
+}

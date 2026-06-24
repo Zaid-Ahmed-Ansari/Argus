@@ -1,0 +1,17 @@
+{
+  "category": "Benign Activity",
+  "variant": "raw",
+  "scenarioId": "ARGUS-0001",
+  "sources": [
+    "apache",
+    "cloudtrail",
+    "m365",
+    "ssh",
+    "sysmon",
+    "vpn",
+    "windows_event"
+  ],
+  "sourceCount": 7,
+  "userContentPreview": "=== SOC INCIDENT ARGUS-0001 | Benign Activity ===\nPrimary user: mike.smith | Host: app-32.acme.com | Internal IP: 192.168.107.83 | External actor: 202.110.18.103\n[Event Summary]\n- SSH failed login x1\n- CloudTrail events x2\n- Background noise events x6\n- apache events x3\n- m365 events x1\n- sysmon events x1\n- windows_event events x3\n\n[Telemetry Samples]\n[AGG] Log event x2\n{\"eventTime\":\"2025-01-01T21:00:43.913Z\",\"eventName\":\"ConsoleLogin\",\"userIdentity\":{\"userName\":\"mike.smith\"},\"sourceIPAddress\":\"192.168.107.83\",\"responseElements\":{\"ConsoleLogin\":\"Success\"}}\n192.168.107.83 - - [2025-01-01 21:01:21.201 +0000] \"GET /dashboard HTTP/1.1\" 200 512\n[AGG] Log event x3\n2025-01-01T21:02:37.825Z VPN-GW user=mike.smith src_ip=192.168.107.83 country=JP action=CONNECT result=SUCCESS\n[AGG] Log event x3\n<Event><System><EventID>4624</EventID><TimeCreated SystemTime=\"2025-01-01T21:03:48.426Z\"/><Computer>app-32.acme.com</Computer></System><EventData><Data Name=\"TargetUserName\">mike.smith</Data><Data Name=\"IpAddress\">192.168.107.83</Data><Data Name=\"LogonType\">10</Data></EventData></Event>\n{\"creationTime\":\"2025-01-01T21:05:23.277Z\",\"userPrincipalName\":\"mike.smith@acme.com\",\"operation\":\"UserLoggedIn\",\"re",
+  "label": "{\"attack_type\":\"Benign Activity\"}"
+}

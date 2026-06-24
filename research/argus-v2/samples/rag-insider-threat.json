@@ -1,0 +1,18 @@
+{
+  "category": "Insider Threat",
+  "variant": "rag",
+  "scenarioId": "ARGUS-0901",
+  "sources": [
+    "apache",
+    "casb",
+    "cloudtrail",
+    "firewall",
+    "hr_feed",
+    "ssh",
+    "vpn",
+    "windows_event"
+  ],
+  "sourceCount": 8,
+  "userContentPreview": "=== INCIDENT ===\n\nInsider Threat\nSource IP: 67.179.117.118\n00:00\nUser james.martin\nHR notice-period activity\nBulk S3 GetObject and file share access\nS3 GetObject calls: 3\nSensitive finance share accessed\nCASB bulk download alert\nMITRE: T1078\n\n=== RETRIEVED CONTEXT ===\n\nMITRE:\nT1078\nValid Accounts\n\nDefinition:\nInsider abuses legitimate credentials to steal data.\n\nIndicators:\nHR lifecycle flags; bulk downloads; off-role data access.\n\nRecommendation:\nCoordinate with HR/legal; suspend account; preserve evidence.\n\n=== END ===",
+  "label": "{\"attack_type\":\"Insider Threat\"}"
+}

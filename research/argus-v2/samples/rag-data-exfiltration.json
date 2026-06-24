@@ -1,0 +1,16 @@
+{
+  "category": "Data Exfiltration",
+  "variant": "rag",
+  "scenarioId": "ARGUS-0801",
+  "sources": [
+    "apache",
+    "dlp",
+    "firewall",
+    "ssh",
+    "sysmon",
+    "vpn"
+  ],
+  "sourceCount": 6,
+  "userContentPreview": "=== INCIDENT ===\n\nData Exfiltration\nSource IP: 137.189.47.201\n00:00\nUser amy.anderson\nArchive created in Documents\nrclone upload to external domain\nTool: rclone\nTransfer segments: 6\nAlert: DLP PII_Bulk_Upload critical\nMITRE: T1041\n\n=== RETRIEVED CONTEXT ===\n\nMITRE:\nT1041\nExfiltration Over C2 Channel\n\nDefinition:\nSensitive data sent to external destination.\n\nIndicators:\nDLP bulk upload; rclone/curl egress; large outbound transfers.\n\nRecommendation:\nBlock egress; preserve logs; assess data exposure.\n\n=== END ===",
+  "label": "{\"attack_type\":\"Data Exfiltration\"}"
+}

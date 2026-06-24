@@ -1,0 +1,15 @@
+{
+  "category": "Brute Force",
+  "variant": "raw",
+  "scenarioId": "ARGUS-0101",
+  "sources": [
+    "apache",
+    "firewall",
+    "ssh",
+    "suricata",
+    "vpn"
+  ],
+  "sourceCount": 5,
+  "userContentPreview": "=== SOC INCIDENT ARGUS-0101 | Brute Force ===\nPrimary user: dan.clark | Host: app-36.acme.com | Internal IP: 172.22.254.92 | External actor: 125.213.138.165\n[Event Summary]\n- SSH failed login x15\n- Suricata IDS alert x1\n- Background noise events x8\n- apache events x3\n\n[Telemetry Samples]\n[AGG] Failed login x14\n2025-01-01T02:00:10.144Z app-36.acme.com sshd[10000]: Failed password for ubuntu from 125.213.138.165 port 22\n2025-01-01T02:04:05.104Z suricata[8517]: [**] ET SCAN SSH BruteForce Tool Detected [**] 125.213.138.165 -> app-36.acme.com:22\n[AGG] Log event x3\n172.22.254.92 - - [2025-01-01 02:30:37.701 +0000] \"GET /health HTTP/1.1\" 200 738\n2025-01-01T02:30:42.329Z fs-96.acme.com sshd[84349]: Accepted publickey for david.chen from 172.22.254.92 port 50431\n[AGG] Log event x2\n2025-01-01T02:31:26.685Z FW-EDGE action=allow src=172.22.254.92 dst=dc-05.acme.com dst_port=80 proto=TCP bytes=8980\n2025-01-01T02:31:14.126Z VPN-GW user=dan.clark src_ip=172.22.254.92 country=AU action=CONNECT result=SUCCESS\n2025-01-01T02:45:45.141Z app-36.acme.com sshd[57076]: Failed password for invalid user guest from 150.216.201.198 port 22\n2025-01-01T02:00:10.144Z app-36.acme.com sshd[10000]: Failed password",
+  "label": "{\"attack_type\":\"Brute Force\"}"
+}

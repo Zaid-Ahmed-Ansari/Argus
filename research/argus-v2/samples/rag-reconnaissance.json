@@ -1,0 +1,16 @@
+{
+  "category": "Reconnaissance",
+  "variant": "rag",
+  "scenarioId": "ARGUS-0401",
+  "sources": [
+    "apache",
+    "firewall",
+    "ssh",
+    "suricata",
+    "sysmon",
+    "vpn"
+  ],
+  "sourceCount": 6,
+  "userContentPreview": "=== INCIDENT ===\n\nReconnaissance\nSource IP: 30.126.250.148\n00:00\nScanner IP 30.126.250.148\n21 denied connection attempts\nMulti-port probe pattern\nFirewall denies: 21\nAlert: Suricata NMAP scan signature\nTarget: 192.168.54.92\nMITRE: T1595\n\n=== RETRIEVED CONTEXT ===\n\nMITRE:\nT1595\nActive Scanning\n\nDefinition:\nProbing infrastructure to map services and attack surface.\n\nIndicators:\nFirewall deny spikes; NMAP signatures; sequential port probes.\n\nRecommendation:\nBlock scanner; review exposed services; patch perimeter.\n\n=== END ===",
+  "label": "{\"attack_type\":\"Reconnaissance\"}"
+}

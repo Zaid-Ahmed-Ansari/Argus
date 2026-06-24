@@ -1,0 +1,14 @@
+{
+  "category": "Defense Evasion",
+  "variant": "rag",
+  "scenarioId": "ARGUS-0601",
+  "sources": [
+    "firewall",
+    "ssh",
+    "sysmon",
+    "windows_event"
+  ],
+  "sourceCount": 4,
+  "userContentPreview": "=== INCIDENT ===\n\nDefense Evasion\nSource IP: 156.242.222.86\n00:00\nUser lisa.miller\nEncoded PowerShell execution\nSecurity log cleared (1102)\nDefender tampering detected\nEvent 1102: audit log cleared\nSysmon 13: DisableAntiSpyware set\nrsyslog service stopped\nMITRE: T1562\n\n=== RETRIEVED CONTEXT ===\n\nMITRE:\nT1562\nImpair Defenses\n\nDefinition:\nDisabling logging, AV, or audit controls.\n\nIndicators:\nEvent 1102 log clear; Defender tampering; encoded PowerShell.\n\nRecommendation:\nIsolate endpoint; restore logging and AV; hunt persistence.\n\n=== END ===",
+  "label": "{\"attack_type\":\"Defense Evasion\"}"
+}

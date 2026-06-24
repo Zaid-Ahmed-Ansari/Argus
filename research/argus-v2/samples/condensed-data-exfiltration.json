@@ -1,0 +1,16 @@
+{
+  "category": "Data Exfiltration",
+  "variant": "condensed",
+  "scenarioId": "ARGUS-0801",
+  "sources": [
+    "apache",
+    "dlp",
+    "firewall",
+    "ssh",
+    "sysmon",
+    "vpn"
+  ],
+  "sourceCount": 6,
+  "userContentPreview": "=== INCIDENT ARGUS-0801 | Analyst Condensed View ===\n\nAttack timeline:\n\n00:00\nUser amy.anderson\nArchive created in Documents\nrclone upload to external domain\n\nIndicators:\n\nTool: rclone\nTransfer segments: 6\nAlert: DLP PII_Bulk_Upload critical\nMITRE: T1041\n\nSuspicious Assets:\n- 137.189.47.201\n- Perimeter Firewall\n- vm-42.initech.local\n\nNoise:\n\n9 unrelated vpn requests",
+  "label": "{\"attack_type\":\"Data Exfiltration\"}"
+}

@@ -1,0 +1,15 @@
+{
+  "category": "Brute Force",
+  "variant": "condensed",
+  "scenarioId": "ARGUS-0101",
+  "sources": [
+    "apache",
+    "firewall",
+    "ssh",
+    "suricata",
+    "vpn"
+  ],
+  "sourceCount": 5,
+  "userContentPreview": "=== INCIDENT ARGUS-0101 | Analyst Condensed View ===\n\nAttack timeline:\n\n00:00\nExternal IP 125.213.138.165\nSSH brute force against app-36.acme.com\n14 failed attempts\n~1 min window\n\nIndicators:\n\nFailed logins: 14\nTarget host: app-36.acme.com\nAlert: Suricata ET SCAN SSH BruteForce\nSource IP: 125.213.138.165\nMITRE: T1110\n\nSuspicious Assets:\n- 125.213.138.165\n- app-36.acme.com\n\nNoise:\n\n8 unrelated apache requests",
+  "label": "{\"attack_type\":\"Brute Force\"}"
+}

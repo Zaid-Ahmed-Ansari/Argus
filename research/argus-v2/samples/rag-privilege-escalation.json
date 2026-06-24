@@ -1,0 +1,15 @@
+{
+  "category": "Privilege Escalation",
+  "variant": "rag",
+  "scenarioId": "ARGUS-0501",
+  "sources": [
+    "apache",
+    "ssh",
+    "sysmon",
+    "vpn",
+    "windows_event"
+  ],
+  "sourceCount": 5,
+  "userContentPreview": "=== INCIDENT ===\n\nPrivilege Escalation\nSource IP: 162.142.42.61\n00:00\nUser emma.thomas\nHost laptop-94.acme.com\nSeDebugPrivilege assigned\nAdded to local Administrators\nEvent 4672: special privileges\nEvent 4732: admin group change\nParent: exploit binary in Downloads\nMITRE: T1068\n\n=== RETRIEVED CONTEXT ===\n\nMITRE:\nT1068\nPrivilege Escalation\n\nDefinition:\nExploit or misconfig used to gain higher privileges.\n\nIndicators:\nSeDebugPrivilege; admin group changes; exploit parent processes.\n\nRecommendation:\nIsolate host; remove admin rights; patch vulnerable software.\n\n=== END ===",
+  "label": "{\"attack_type\":\"Privilege Escalation\"}"
+}

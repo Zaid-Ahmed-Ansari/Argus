@@ -1,0 +1,15 @@
+{
+  "category": "Privilege Escalation",
+  "variant": "raw",
+  "scenarioId": "ARGUS-0501",
+  "sources": [
+    "apache",
+    "ssh",
+    "sysmon",
+    "vpn",
+    "windows_event"
+  ],
+  "sourceCount": 5,
+  "userContentPreview": "=== SOC INCIDENT ARGUS-0501 | Privilege Escalation ===\nPrimary user: emma.thomas | Host: laptop-94.acme.com | Internal IP: 10.229.185.138 | External actor: 162.142.42.61\n[Event Summary]\n- SSH failed login x1\n- Background noise events x9\n- apache events x2\n- sysmon events x2\n- windows_event events x3\n\n[Telemetry Samples]\n[AGG] Log event x3\n<Event><System><EventID>4624</EventID><TimeCreated SystemTime=\"2025-01-01T11:00:28.600Z\"/><Computer>laptop-94.acme.com</Computer></System><EventData><Data Name=\"TargetUserName\">emma.thomas</Data><Data Name=\"LogonType\">2</Data></EventData></Event>\n[AGG] Log event x2\n<Event><System><Provider Name=\"Microsoft-Windows-Sysmon\"/><EventID>1</EventID><TimeCreated SystemTime=\"2025-01-01T11:03:25.031Z\"/><Computer>laptop-94.acme.com</Computer></System><EventData><Data Name=\"Image\">C:\\Windows\\System32\\cmd.exe</Data><Data Name=\"CommandLine\">whoami /priv &amp; net localgroup administrators emma.thomas /add</Data><Data Name=\"ParentImage\">C:\\Users\\emma.thomas\\Downloads\\exploit_CVE-2024-38112.exe</Data><Data Name=\"User\">laptop-94.acme.com\\emma.thomas</Data></EventData></Event>\n[AGG] Log event x3\n2025-01-01T11:30:53.225Z VPN-GW user=emma.thomas src_ip=10.229.185.138",
+  "label": "{\"attack_type\":\"Privilege Escalation\"}"
+}

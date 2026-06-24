@@ -1,0 +1,16 @@
+{
+  "category": "Reconnaissance",
+  "variant": "raw",
+  "scenarioId": "ARGUS-0401",
+  "sources": [
+    "apache",
+    "firewall",
+    "ssh",
+    "suricata",
+    "sysmon",
+    "vpn"
+  ],
+  "sourceCount": 6,
+  "userContentPreview": "=== SOC INCIDENT ARGUS-0401 | Reconnaissance ===\nPrimary user: carlos.chen | Host: app-36.umbrella.co | Internal IP: 192.168.54.92 | External actor: 30.126.250.148\n[Event Summary]\n- SSH failed login x1\n- Firewall deny x21\n- Suricata IDS alert x1\n- Background noise events x8\n- apache events x3\n- sysmon events x1\n\n[Telemetry Samples]\n[AGG] Firewall deny x11\n2025-01-01T22:00:10.588Z FW-EDGE action=deny src=30.126.250.148 dst=192.168.54.92 dst_port=22 proto=TCP reason=port_scan threshold_exceeded\n[AGG] Firewall deny x10\n2025-01-01T22:00:02.304Z FW-EDGE action=deny src=30.126.250.148 dst=dc-41.umbrella.co dst_port=80 proto=TCP reason=port_scan threshold_exceeded\n2025-01-01T22:20:44.601Z suricata: [1:2100498:7] ET SCAN NMAP -sS window 1024 [**] 30.126.250.148\n[AGG] Log event x3\n192.168.54.92 - - [2025-01-01 22:30:25.835 +0000] \"GET /health HTTP/1.1\" 200 500\n[AGG] Log event x2\n2025-01-01T22:30:01.069Z FW-EDGE action=allow src=192.168.54.92 dst=dc-41.umbrella.co dst_port=53 proto=TCP bytes=3257\n2025-01-01T22:31:49.405Z VPN-GW user=carlos.chen src_ip=192.168.54.92 country=SE action=CONNECT result=SUCCESS\n<Event><System><Provider Name=\"Microsoft-Windows-Sysmon\"/><EventID>1</EventID><TimeCrea",
+  "label": "{\"attack_type\":\"Reconnaissance\"}"
+}

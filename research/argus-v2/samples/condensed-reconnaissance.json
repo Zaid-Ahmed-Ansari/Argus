@@ -1,0 +1,16 @@
+{
+  "category": "Reconnaissance",
+  "variant": "condensed",
+  "scenarioId": "ARGUS-0401",
+  "sources": [
+    "apache",
+    "firewall",
+    "ssh",
+    "suricata",
+    "sysmon",
+    "vpn"
+  ],
+  "sourceCount": 6,
+  "userContentPreview": "=== INCIDENT ARGUS-0401 | Analyst Condensed View ===\n\nAttack timeline:\n\n00:00\nScanner IP 30.126.250.148\n21 denied connection attempts\nMulti-port probe pattern\n\nIndicators:\n\nFirewall denies: 21\nAlert: Suricata NMAP scan signature\nTarget: 192.168.54.92\nMITRE: T1595\n\nSuspicious Assets:\n- 30.126.250.148\n- Perimeter Firewall\n- app-36.umbrella.co\n\nNoise:\n\n8 unrelated apache requests",
+  "label": "{\"attack_type\":\"Reconnaissance\"}"
+}

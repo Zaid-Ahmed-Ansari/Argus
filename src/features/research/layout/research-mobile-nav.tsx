@@ -10,7 +10,6 @@ const TABS = [
   { href: "/research/experiments", label: "Experiments" },
   { href: "/research/results", label: "Results" },
   { href: "/research/questions", label: "Questions" },
-  { href: "/research/reports", label: "Reports" },
 ] as const;
 
 export function ResearchMobileNav() {

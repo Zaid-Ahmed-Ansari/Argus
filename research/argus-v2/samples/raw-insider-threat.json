@@ -1,0 +1,18 @@
+{
+  "category": "Insider Threat",
+  "variant": "raw",
+  "scenarioId": "ARGUS-0901",
+  "sources": [
+    "apache",
+    "casb",
+    "cloudtrail",
+    "firewall",
+    "hr_feed",
+    "ssh",
+    "vpn",
+    "windows_event"
+  ],
+  "sourceCount": 8,
+  "userContentPreview": "=== SOC INCIDENT ARGUS-0901 | Insider Threat ===\nPrimary user: james.martin | Host: vm-42.corp.local | Internal IP: 10.17.32.41 | External actor: 67.179.117.118\n[Event Summary]\n- SSH failed login x1\n- CloudTrail events x3\n- Background noise events x7\n- apache events x1\n- casb events x1\n- hr_feed events x1\n- windows_event events x1\n\n[Telemetry Samples]\n2025-01-01T17:00:24.003Z HR-INTEGRATION: employee_id=E10000 user=james.martin status=resignation_notice effective_date=2025-11-15\n[AGG] CloudTrail GetObject x3\n{\"eventTime\":\"2025-01-01T17:01:46.837Z\",\"eventName\":\"GetObject\",\"userIdentity\":{\"userName\":\"james.martin\"},\"requestParameters\":{\"bucketName\":\"prod-customer-data\",\"key\":\"accounts/part_000.csv\"},\"sourceIPAddress\":\"10.17.32.41\"}\n<Event><System><EventID>4663</EventID><TimeCreated SystemTime=\"2025-01-01T17:10:39.082Z\"/><Computer>vm-42.corp.local</Computer></System><EventData><Data Name=\"SubjectUserName\">james.martin</Data><Data Name=\"ObjectName\">\\\\ws-81\\Finance\\Q4_forecast_confidential.xlsx</Data><Data Name=\"AccessMask\">0x100080</Data></EventData></Event>\n2025-01-01T17:12:39.646Z CASB alert: user=james.martin app=Dropbox action=bulk_download files=423 data_volume_gb=38 anomaly_score",
+  "label": "{\"attack_type\":\"Insider Threat\"}"
+}

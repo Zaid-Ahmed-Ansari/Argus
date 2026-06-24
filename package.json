@@ -31,6 +31,10 @@
     "experiment:scenario": "tsx scripts/run-experiment.ts --fixture",
     "experiment:rag": "tsx scripts/run-experiment.ts exp-002",
     "experiment:baseline": "tsx scripts/export-research-baseline.ts",
+    "research:extract-samples": "tsx scripts/extract-research-samples.ts",
+    "research:build-aggregates": "tsx scripts/build-research-aggregates.ts",
+    "research:validate": "tsx scripts/validate-research-data.ts",
+    "research:prepare": "npm run research:extract-samples && npm run research:build-aggregates && npm run research:validate",
     "audit": "npm audit --omit=dev",
     "boneyard:build": "boneyard-js build http://localhost:3000/dev/bones",
     "postinstall": "prisma generate"

@@ -1,0 +1,16 @@
+{
+  "category": "Data Exfiltration",
+  "variant": "raw",
+  "scenarioId": "ARGUS-0801",
+  "sources": [
+    "apache",
+    "dlp",
+    "firewall",
+    "ssh",
+    "sysmon",
+    "vpn"
+  ],
+  "sourceCount": 6,
+  "userContentPreview": "=== SOC INCIDENT ARGUS-0801 | Data Exfiltration ===\nPrimary user: amy.anderson | Host: vm-42.initech.local | Internal IP: 172.26.113.198 | External actor: 137.189.47.201\n[Event Summary]\n- SSH failed login x1\n- Background noise events x9\n- apache events x2\n- dlp events x1\n- sysmon events x3\n\n[Telemetry Samples]\n[AGG] Log event x3\n<Event><System><Provider Name=\"Microsoft-Windows-Sysmon\"/><EventID>11</EventID><TimeCreated SystemTime=\"2025-01-01T09:00:30.589Z\"/><Computer>vm-42.initech.local</Computer></System><EventData><Data Name=\"TargetFilename\">C:\\Users\\amy.anderson\\Documents\\customer_pii_export_0.zip</Data></EventData></Event>\n2025-01-01T09:02:16.482Z PROXY-SWG action=allow user=amy.anderson dst=mega-upload.io bytes_sent=3382792663 url=https://mega-upload.io/upload category=Personal Storage\n2025-01-01T09:03:20.793Z DLP alert: policy=PII_Bulk_Upload user=amy.anderson file=customer_pii_export_0.zip size_mb=3382 severity=critical\n[AGG] Proxy chunk upload x5\n2025-01-01T09:04:25.384Z PROXY-SWG chunk_upload user=amy.anderson dst=mega-upload.io bytes=28597042 seq=0\n[AGG] Log event x4\n2025-01-01T09:30:33.223Z VPN-GW user=amy.anderson src_ip=172.26.113.198 country=UA action=CONNECT result=S",
+  "label": "{\"attack_type\":\"Data Exfiltration\"}"
+}

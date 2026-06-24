@@ -1,4 +1,4 @@
-import type { ProgressStep } from "@/lib/research-types";
+import type { ProgressStep } from "@/lib/argus-research/types";
 import { cn } from "@/lib/utils";
 
 type ProgressTimelineProps = {

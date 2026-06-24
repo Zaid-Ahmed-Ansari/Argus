@@ -1,0 +1,14 @@
+{
+  "category": "Defense Evasion",
+  "variant": "raw",
+  "scenarioId": "ARGUS-0601",
+  "sources": [
+    "firewall",
+    "ssh",
+    "sysmon",
+    "windows_event"
+  ],
+  "sourceCount": 4,
+  "userContentPreview": "=== SOC INCIDENT ARGUS-0601 | Defense Evasion ===\nPrimary user: lisa.miller | Host: laptop-26.initech.local | Internal IP: 192.168.152.160 | External actor: 156.242.222.86\n[Event Summary]\n- SSH failed login x1\n- Background noise events x5\n- sysmon events x4\n- windows_event events x1\n\n[Telemetry Samples]\n[AGG] Log event x4\n<Event><System><Provider Name=\"Microsoft-Windows-Sysmon\"/><EventID>1</EventID><TimeCreated SystemTime=\"2025-01-01T18:00:57.233Z\"/><Computer>laptop-26.initech.local</Computer></System><EventData><Data Name=\"Image\">powershell.exe</Data><Data Name=\"CommandLine\">powershell -enc cfcd208495d565ef66e7dff9f98764da...</Data><Data Name=\"User\">laptop-26.initech.local\\lisa.miller</Data></EventData></Event>\n<Event><System><EventID>1102</EventID><TimeCreated SystemTime=\"2025-01-01T18:01:43.928Z\"/><Computer>laptop-26.initech.local</Computer></System><EventData><Data Name=\"SubjectUserName\">lisa.miller</Data></EventData></Event>\n2025-01-01T18:03:44.002Z laptop-26.initech.local auditd: type=SERVICE_STOP comm=\"systemd\" cmd=\"stop rsyslog\"\n2025-01-01T18:30:05.200Z fs-56.initech.local sshd[35956]: Accepted publickey for lisa.miller from 192.168.152.160 port 40452\n2025-01-01T18:30:08.96",
+  "label": "{\"attack_type\":\"Defense Evasion\"}"
+}

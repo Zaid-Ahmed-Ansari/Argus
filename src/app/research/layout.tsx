@@ -6,9 +6,11 @@ import type { LandingUser } from "@/features/landing/types";
 
 export const metadata = createPageMetadata(
   "Research Lab",
-  "Interactive AI research laboratory for SOC log triage evaluation, experiment comparison, and reproducible cybersecurity benchmarks.",
+  "AI-powered SOC incident classification research platform — ARGUS-1000 dataset, Qwen3-4B evaluation, LoRA fine-tuning, and reproducible benchmarks.",
   "/research",
 );
+
+export const revalidate = 86400;
 
 export default async function ResearchLayout({
   children,
